@@ -31,6 +31,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="vet-verification" class="nav-link <?= ($activePage == 'vet-verification') ? 'active' : ''; ?> ">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Vet Varification
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
