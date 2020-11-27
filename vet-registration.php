@@ -19,7 +19,7 @@ include_once 'includes/header.php';
                             </div>
                         <?php };
                         unset($_SESSION['msg']); ?>
-                        <form id="login-form" action="controllers/vetRegistrationController.php" method="post" role="form" style="display: block;">
+                        <form id="login-form" action="controllers/vetRegistrationController.php" method="post" role="form" enctype="multipart/form-data" style="display: block;">
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>Full Name :</label>
                                 <input type="text" name="fullname" class="form-control" placeholder="Username">
@@ -39,6 +39,10 @@ include_once 'includes/header.php';
                                     <option value="female">Female</option>
                                     <option value="Other">Other</option>
                                 </select>
+                            </div>
+                            <div class="form-group" style="margin-top: 25px;">
+                                <label>Profile Image :</label>
+                                <input type="file" name="image" class="form-control">
                             </div>
 
                             <div class="form-group">

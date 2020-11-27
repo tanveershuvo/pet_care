@@ -7,25 +7,64 @@ if (isset($_POST['vet_register'])) {
     $bmdc_reg_num = mysqli_real_escape_string($conn, $_POST['bmdc_reg_num']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+
+    $image = 0;
+    if (isset($_FILES["image"]["name"]) && $_FILES["image"]["name"] != '') {
+        $target_dir = "../images/uploadedImages/";
+        $image = date('YmdHis_');
+        $image .= basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . $image;
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            $uploadOk = 0;
+        }
+        if (file_exists($target_file)) {
+            $uploadOk = 0;
+        }
+        if ($_FILES["image"]["size"] > 5000000) {
+            $uploadOk = 0;
+        }
+        if (
+            $imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
+            $uploadOk = 0;
+        }
+        if ($uploadOk == 0) {
+            $okFlag = FALSE;
+        } else {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            } else {
+                $okFlag = FALSE;
+            }
+        }
+    } else {
+        $image = $_POST['image'];
+    }
+
     $sql = "SELECT * FROM vetDetails WHERE bmdc_registered_number = '$bmdc_reg_num'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $_SESSION['msg'] = "This registration number is already in use!!";
         $_SESSION['type'] = "danger";
-        header('Location:../vet-registration.php');
+        header('Location:../vet-registration');
     } else {
-        $sql = "INSERT INTO `vetDetails`(`full_name`,`bmdc_registered_number`, `email_address`, `gender`) 
-                VALUES ('$fullname','$bmdc_reg_num','$email','$gender')";
+        $sql = "INSERT INTO `vetDetails`(`full_name`,`bmdc_registered_number`, `email_address`, `gender`,`pro_pic`) 
+                VALUES ('$fullname','$bmdc_reg_num','$email','$gender','$image')";
 
         if ($conn->query($sql)) {
             $_SESSION['msg'] = "You will receive a mail after admin approval!!";
             $_SESSION['type'] = "success";
-            header('Location:../vet-registration.php');
+            header('Location:../vet-registration');
         } else {
             $_SESSION['msg'] = "Something went Wrong!!Try again Later!";
             $_SESSION['type'] = "danger";
-            header('Location:../vet-registration.php');
+            header('Location:../vet-registration');
         }
     }
 }
@@ -38,7 +77,7 @@ if (isset($_POST['update_register'])) {
     if ($n_password !== $c_password) {
         $_SESSION['msg'] = "Password Mismatch!";
         $_SESSION['type'] = "danger";
-        header('Location:../dashboard.php');
+        header('Location:../dashboard');
     }
     if ($_POST['new_password'] == '') {
         $sql = "Update `users` SET `name` = '$name' WHERE id = '$id'";
@@ -51,10 +90,10 @@ if (isset($_POST['update_register'])) {
         $_SESSION['msg'] = "Profile Updated succesfully";
         $_SESSION['type'] = "success";
         $_SESSION['name'] = $name;
-        header('Location:../dashboard.php');
+        header('Location:../dashboard');
     } else {
         $_SESSION['msg'] = "Something went Wrong!!Try again Later!";
         $_SESSION['type'] = "danger";
-        header('Location:../dashboard.php');
+        header('Location:../dashboard');
     }
 }

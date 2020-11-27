@@ -13,10 +13,11 @@ if (isset($_POST["submit"])) {
     $_SESSION['email'] = $row['email'];
     $_SESSION['name'] = $row['name'];
     $_SESSION['role'] = $row['role'];
+    $_SESSION['id'] = $row['id'];
     if ($row['role'] == 1) {
       header('Location:dashboard');
     } elseif ($row['role'] == 2) {
-      header('Location:doctor-dashboard');
+      header('Location:vet-dashboard');
     } else {
       header('Location:index');
       $_SESSION['msg'] = 'Login invalid';

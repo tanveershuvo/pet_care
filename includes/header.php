@@ -13,18 +13,18 @@
 
             <div class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li class="scroll active"><a href="index.php">Home</a></li>
-                    <li class="scroll"><a href="services.php">Our Services</a></li>
-                    <li class="scroll"><a href="contact.php">Contact</a></li>
+                    <li class="scroll active"><a href="index">Home</a></li>
+                    <li class="scroll"><a href="services">Our Services</a></li>
+                    <li class="scroll"><a href="contact">Contact</a></li>
 
                     <?php if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn']) { ?>
-                        <li class="scroll"><a href="dashboard.php">My Dashboard</a></li>
-                        <li class="scroll"><a href="logout.php">Logout</a></li>
+                        <li class="scroll"><a href="dashboard">My Dashboard</a></li>
+                        <li class="scroll"><a href="logout">Logout</a></li>
 
                     <?php } else { ?>
-                        <li class="scroll"><a href="signin.php">Sign In</a></li>
+                        <li class="scroll"><a href="signin">Sign In</a></li>
+                        <li class="scroll"><a href="vet-registration">Vet Registration</a></li>
                     <?php } ?>
-                    <li class="scroll"><a href="vet-registration.php">Vet Registration</a></li>
 
 
 

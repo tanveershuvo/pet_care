@@ -7,6 +7,7 @@ $post_id = $_GET['id'];
 $sql = "SELECT * FROM adoptionPost,users
 WHERE adoptionpost.user_id = users.id
 AND adoptionpost.id = $post_id";
+
 $result = $conn->query($sql);
 foreach ($result as $key => $row) {
     $title = $row['title'];

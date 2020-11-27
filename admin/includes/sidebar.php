@@ -49,6 +49,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="profile" class="nav-link <?= ($activePage == 'profile') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                My Profile
+              </p>
+            </a>
+          </li>
         <?php } ?>
       </ul>
     </nav>

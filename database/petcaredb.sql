@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 06:00 PM
+-- Generation Time: Nov 27, 2020 at 07:38 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -45,8 +45,7 @@ CREATE TABLE `adoptionpost` (
 --
 
 INSERT INTO `adoptionpost` (`id`, `title`, `description`, `image`, `location_id`, `address`, `contact_info`, `user_id`, `status`) VALUES
-(1, 'Cum id est optio niss', 'Ullamco sit sed volus', '20201124165942_PetClinic.jpeg', 1, 'Sapiente id fugit ', 'Labore eveniet culpss', 5, 1),
-(2, 'Ex omnis rerum sed e', 'Perferendis suscipit', '20201124170437_PetClinic.jpeg', 1, 'Sed hic omnis nostru', 'Unde assumenda ducim', 5, 0);
+(3, 'Velit anim dolor si', 'Iste qui voluptatem ', '20201127161233_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 'Odit voluptatem Inc', 'Necessitatibus nulla', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -168,9 +167,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'gacobe', 'najefuma@mailinator.com', 'f3ed11bbdb94fd9ebdefbaf646ab94d3', 3),
-(5, 'Tanvira rahman', 'tanvir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 3),
-(6, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1);
+(1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(2, 'Tanvir', 'tanveershuvos@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 2);
 
 -- --------------------------------------------------------
 
@@ -202,6 +200,8 @@ CREATE TABLE `vetdetails` (
   `address` varchar(200) NOT NULL,
   `gender` varchar(20) NOT NULL,
   `visiting_charge` int(11) NOT NULL,
+  `short_bio` varchar(255) NOT NULL,
+  `pro_pic` varchar(200) NOT NULL,
   `avg_rating` float(10,2) NOT NULL,
   `is_approved` tinyint(1) DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -210,11 +210,8 @@ CREATE TABLE `vetdetails` (
 -- Dumping data for table `vetdetails`
 --
 
-INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `avg_rating`, `is_approved`) VALUES
-(2, NULL, 'Vel ullamco eum quas', 'Kelsey Martinez', '', '', 'hubypado@mailinator.com', '', '0', 0, 0.00, -1),
-(3, NULL, 'Porro excepteur amet', 'Hedwig Case', '', '', 'tanveershuvos@gmail.com', '', 'female', 0, 0.00, 0),
-(4, NULL, 'Incidunt ut tempora', 'Leandra Glenn', '', '', 'lajodecyw@mailinator.com', '', 'female', 0, 0.00, 0),
-(5, NULL, 'Cillum pariatur Qua', 'Reed Gardner', '', '', 'lyry@mailinator.com', '', 'Other', 0, 0.00, 1);
+INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `avg_rating`, `is_approved`) VALUES
+(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 0, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 0.00, 1);
 
 -- --------------------------------------------------------
 
@@ -346,7 +343,7 @@ ALTER TABLE `weekdays`
 -- AUTO_INCREMENT for table `adoptionpost`
 --
 ALTER TABLE `adoptionpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `appointment`
@@ -394,7 +391,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vetavalability`
@@ -406,7 +403,7 @@ ALTER TABLE `vetavalability`
 -- AUTO_INCREMENT for table `vetdetails`
 --
 ALTER TABLE `vetdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vetrating`
