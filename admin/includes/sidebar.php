@@ -15,30 +15,41 @@
       <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="dashboard" class="nav-link <?= ($activePage == 'dashboard') ? 'active' : ''; ?> ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="service-list" class="nav-link <?= ($activePage == 'service-list') ? 'active' : ''; ?> ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Service List
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="vet-verification" class="nav-link <?= ($activePage == 'vet-verification') ? 'active' : ''; ?> ">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Vet Varification
-            </p>
-          </a>
-        </li>
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 1) { ?>
+          <li class="nav-item">
+            <a href="dashboard" class="nav-link <?= ($activePage == 'dashboard') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="service-list" class="nav-link <?= ($activePage == 'service-list') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Service List
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="vet-verification" class="nav-link <?= ($activePage == 'vet-verification') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Vet Varification
+              </p>
+            </a>
+          </li>
+        <?php } elseif (isset($_SESSION['role']) && $_SESSION['role'] == 2) { ?>
+          <li class="nav-item">
+            <a href="vet-dashboard" class="nav-link <?= ($activePage == 'vet-dashboard') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                My Dashboard
+              </p>
+            </a>
+          </li>
+        <?php } ?>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
