@@ -4,7 +4,7 @@ include_once 'includes/header.php';
 include_once("dbConnection/dbCon.php");
 $conn = connect();
 $id = $_SESSION['id'];
-$sql = "SELECT * FROM adoptionPost ,location WHERE adoptionpost.location_id = location.id AND user_id = '$id'";
+$sql = "SELECT *, adoptionPost.id as 'a_id' FROM adoptionPost ,location WHERE adoptionpost.location_id = location.id AND user_id = '$id'";
 $result = $conn->query($sql);
 
 ?>
@@ -78,7 +78,7 @@ $result = $conn->query($sql);
                                 if ($value['status'] == 0) {
                                 ?>
                                     <form action="controllers/adoptionController.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $value['id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $value['a_id'] ?>">
                                         <button type="submit" name="adopted" class="btn btn-warning">Done</button>
                                     </form>
                                 <?php
@@ -89,7 +89,7 @@ $result = $conn->query($sql);
                             </td>
                             <td>
                                 <?php if ($value['status'] == 0) { ?>
-                                    <a href="adoption-post.php?edit=<?= $value['id'] ?>" class="btn btn-info">Edit</a>
+                                    <a href="adoption-post.php?edit=<?= $value['a_id'] ?>" class="btn btn-info">Edit</a>
                                 <?php } else { ?>
                                     None
                                 <?php } ?>

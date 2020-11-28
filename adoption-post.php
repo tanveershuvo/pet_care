@@ -1,6 +1,5 @@
 <?php
-include_once 'includes/head.php';
-include_once 'includes/header.php';
+
 include_once("dbConnection/dbCon.php");
 $conn = connect();
 if (isset($_GET['edit'])) {
@@ -11,6 +10,8 @@ if (isset($_GET['edit'])) {
 }
 $sql = "SELECT * FROM `location`";
 $loc = $conn->query($sql);
+include_once 'includes/head.php';
+include_once 'includes/header.php';
 ?>
 <div class="container">
     <div class="col col-md-3">
@@ -80,7 +81,7 @@ $loc = $conn->query($sql);
                     <select name="location" class="form-control select2" style="width: 100%;">
                         <option>Select from here</option>
                         <?php foreach ($loc as $location) { ?>
-                            <option value="<?= $location['id'] ?>" <?php if ($location['id'] == $row['location_id']) { ?>selected<?php } ?>><?= $location['location'] ?></option>
+                            <option value="<?= $location['id'] ?>" <?php if (isset($row['location_id']) && ($location['id'] == $row['location_id'])) { ?>selected<?php } ?>><?= $location['location'] ?></option>
                         <?php } ?>
                     </select>
                 </div>

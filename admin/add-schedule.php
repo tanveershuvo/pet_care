@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once("../dbConnection/dbCon.php");
 $conn = connect();
 $sql = "SELECT * FROM services Order By service_name ASC ";
@@ -12,8 +11,9 @@ $slots = $conn->query($sql2);
 
 $sql3 = "SELECT * FROM `services`";
 $services = $conn->query($sql3);
-
+$selectweek = [];
 if (isset($_GET['edit'])) {
+  session_start();
   $id = $_SESSION['id'];
   $sql = "SELECT * FROM vetdetails WHERE user_id = '$id' ";
   $result = $conn->query($sql);
@@ -26,11 +26,13 @@ if (isset($_GET['edit'])) {
     $selectweek[] = $val['week_days'];
   }
 
-  $sql2 = "SELECT * FROM `slot`";
-  $slots = $conn->query($sql2);
+  $esql2 = "SELECT slot_id FROM `vet_available_slot` WHERE vet_id = '$id'";
+  $slotsData = $conn->query($esql2);
 
-  $sql3 = "SELECT * FROM `services`";
-  $services = $conn->query($sql3);
+  $weekSlot = [];
+  foreach ($slotsData as $valdata) {
+    $weekSlot[] = $valdata['slot_id'];
+  }
 }
 
 ?>

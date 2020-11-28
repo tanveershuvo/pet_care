@@ -18,14 +18,7 @@ include 'includes/sidebar.php';
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Vet Profile</h1>
-          <?php
-          if (isset($_SESSION['msg'])) {
-          ?>
-            <div class="alert alert-<?= $_SESSION['type'] ?> ">
-              <h5><?= $_SESSION['msg'] ?></h5>
-            </div>
-          <?php };
-          unset($_SESSION['msg']); ?>
+
         </div>
 
       </div>
@@ -64,6 +57,7 @@ include 'includes/sidebar.php';
         </div>
         <!-- /.col -->
         <div class="col-md-9">
+
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
@@ -77,6 +71,15 @@ include 'includes/sidebar.php';
                 <div class="active tab-pane" id="activity">
 
                   <div class="card-body">
+                    <?php if (isset($_SESSION['msg'])) { ?>
+                      <div class="card msg bg-<?php echo $_SESSION['type']; ?> ">
+                        <div class="card-body">
+                          <?php echo $_SESSION['msg'];
+                          unset($_SESSION['type'], $_SESSION['msg']); ?>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    <?php } ?>
                     <strong><i class="fas fa-book mr-1"></i> BMDC Registered Number</strong>
 
                     <p class="text-muted">
@@ -93,17 +96,28 @@ include 'includes/sidebar.php';
 
                     <hr>
 
+                    <strong><i class="fas fa-book mr-1"></i> Title</strong>
+
+                    <p class="text-muted"><?php if (isset($row['title'])) {
+                                            echo $row['title'];
+                                          }  ?>
+                    </p>
+
                     <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
                     <p class="text-muted">
-                      <?= $row['education'] ?>
+                      <?php if (isset($row['education'])) {
+                        echo $row['education'];
+                      }  ?>
                     </p>
 
                     <hr>
 
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Address</strong>
 
-                    <p class="text-muted"><?= $row['address'] ?></p>
+                    <p class="text-muted"><?php if (isset($row['address'])) {
+                                            echo $row['address'];
+                                          }  ?></p>
 
                     <hr>
 
@@ -115,7 +129,9 @@ include 'includes/sidebar.php';
 
                     <strong><i class="far fa-file-alt mr-1"></i> Short Bio</strong>
 
-                    <p class="text-muted"><?= $row['short_bio'] ?>
+                    <p class="text-muted"><?php if (isset($row['address'])) {
+                                            echo $row['address'];
+                                          }  ?>
                     </p>
                   </div>
                   <!-- /.post -->
@@ -124,7 +140,7 @@ include 'includes/sidebar.php';
 
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
-                  <form class="form-horizontal" action="controllers/updateprofileControllers.php" method="post">
+                  <form class="form-horizontal" action="controllers/updateprofileController.php" method="post">
                     <div class="form-group row">
                       <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
                       <label for="inputName" class="col-sm-2 col-form-label">Title</label>
@@ -163,21 +179,17 @@ include 'includes/sidebar.php';
                     <div class="form-group row">
                       <label for="inputExperience" class="col-sm-2 col-form-label">Education</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="education" id="inputExperience" placeholder="Experience">
-                          <?php if (isset($row['education'])) {
-                            echo $row['education'];
-                          } ?>
-                        </textarea>
+                        <textarea class="form-control" name="education" placeholder="Education"><?php if (isset($row['education'])) {
+                                                                                                  echo $row['education'];
+                                                                                                } ?></textarea>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputExperience" class="col-sm-2 col-form-label">Short Bio</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="short_bio" id="inputExperience" placeholder="Experience">
-                          <?php if (isset($row['short_bio'])) {
-                            echo $row['short_bio'];
-                          } ?>
-                        </textarea>
+                        <textarea class="form-control" name="short_bio" placeholder="Bio"><?php if (isset($row['short_bio'])) {
+                                                                                            echo $row['short_bio'];
+                                                                                          } ?></textarea>
                       </div>
                     </div>
 
@@ -192,7 +204,7 @@ include 'includes/sidebar.php';
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane" id="settings">
-                  <form class="form-horizontal" action="update_password.php" method="post">
+                  <form class="form-horizontal" action="controllers/updateprofileController.php" method="post">
                     <input type="hidden" value="<?php echo $id; ?>" name="id">
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-4 col-form-label">Password</label>
