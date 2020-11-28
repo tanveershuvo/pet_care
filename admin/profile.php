@@ -18,6 +18,14 @@ include 'includes/sidebar.php';
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Vet Profile</h1>
+          <?php
+          if (isset($_SESSION['msg'])) {
+          ?>
+            <div class="alert alert-<?= $_SESSION['type'] ?> ">
+              <h5><?= $_SESSION['msg'] ?></h5>
+            </div>
+          <?php };
+          unset($_SESSION['msg']); ?>
         </div>
 
       </div>
@@ -113,37 +121,39 @@ include 'includes/sidebar.php';
                   <!-- /.post -->
 
                 </div>
+
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" action="update_profile.php" method="post">
                     <div class="form-group row">
+                      <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
                       <label for="inputName" class="col-sm-2 col-form-label">Title</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputName" value="<?php if (isset($row['title'])) {
-                                                                                          echo $row['title'];
-                                                                                        } ?>" placeholder="Title">
+                        <input type="text" class="form-control" id="inputName" name="title" value="<?php if (isset($row['title'])) {
+                                                                                                      echo $row['title'];
+                                                                                                    } ?>" placeholder="Title">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?php if (isset($row['full_name'])) {
-                                                                          echo $row['full_name'];
-                                                                        } ?>" id="inputName2" placeholder="Name">
+                        <input type="text" class="form-control" name="full_name" value="<?php if (isset($row['full_name'])) {
+                                                                                          echo $row['full_name'];
+                                                                                        } ?>" id="inputName2" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputName2" class="col-sm-2 col-form-label">Address</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?php if (isset($row['address'])) {
-                                                                          echo $row['address'];
-                                                                        } ?>" id="inputName2" placeholder="Name">
+                        <input type="text" class="form-control" name="address" value="<?php if (isset($row['address'])) {
+                                                                                        echo $row['address'];
+                                                                                      } ?>" id="inputName2" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label">Gender</label>
                       <div class="col-sm-10">
-                        <select class="form-control">
+                        <select class="form-control" name="gender">
                           <option value="male" <?php if (($row['gender']) === 'male') { ?>selected<?php } ?>>Male</option>
                           <option value="female" <?php if (($row['gender']) === 'female') { ?>selected<?php } ?>>Female</option>
                           <option value="other" <?php if (($row['gender']) === 'other') { ?>selected<?php } ?>>Other</option>
@@ -151,19 +161,23 @@ include 'includes/sidebar.php';
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputExperience" value="<?php if (isset($row['education'])) {
-                                                            echo $row['education'];
-                                                          } ?>" class="col-sm-2 col-form-label">Education</label>
+                      <label for="inputExperience" class="col-sm-2 col-form-label">Education</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        <textarea class="form-control" name="education" id="inputExperience" placeholder="Experience">
+                          <?php if (isset($row['education'])) {
+                            echo $row['education'];
+                          } ?>
+                        </textarea>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputExperience" value="<?php if (isset($row['short_bio'])) {
-                                                            echo $row['short_bio'];
-                                                          } ?>" class="col-sm-2 col-form-label">Short Bio</label>
+                      <label for="inputExperience" class="col-sm-2 col-form-label">Short Bio</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        <textarea class="form-control" name="short_bio" id="inputExperience" placeholder="Experience">
+                          <?php if (isset($row['short_bio'])) {
+                            echo $row['short_bio'];
+                          } ?>
+                        </textarea>
                       </div>
                     </div>
 
