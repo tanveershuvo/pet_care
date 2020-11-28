@@ -80,7 +80,7 @@ $loc = $conn->query($sql);
                     <select name="location" class="form-control select2" style="width: 100%;">
                         <option>Select from here</option>
                         <?php foreach ($loc as $location) { ?>
-                            <option <?= $location['id'] ?>><?= $location['location'] ?></option>
+                            <option value="<?= $location['id'] ?>" <?php if ($location['id'] == $row['location_id']) { ?>selected<?php } ?>><?= $location['location'] ?></option>
                         <?php } ?>
                     </select>
                 </div>

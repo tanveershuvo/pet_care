@@ -3,22 +3,29 @@
 <?php
 include_once("dbConnection/dbCon.php");
 $conn = connect();
-$sql = 'SELECT adoptionpost.*,location.location FROM `adoptionpost`,location WHERE adoptionpost.location_id = location.id ';
-$result = $conn->query($sql);
+if (isset($_POST['search']) && $_POST['location'] != 0) {
+    $loc = $_POST['location'];
+    $sql = "SELECT adoptionpost.*,location.location FROM `adoptionpost`,location WHERE adoptionpost.location_id = location.id  AND location.id = '$loc' AND status = 0";
+    $result = $conn->query($sql);
+} else {
+    $sql = 'SELECT adoptionpost.*,location.location FROM `adoptionpost`,location WHERE adoptionpost.location_id = location.id AND status = 0 ';
+    $result = $conn->query($sql);
+}
+
 ?>
 
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 wow fadeInLeft">
+            <div class="col-sm-4 wow fadeInLeft">
                 <div class="panel panel-default">
                     <div class="panel-heading">Search Section</div>
                     <div class="panel-body">
-                        <form action="">
+                        <form action="" method="post">
                             <div class="form-group row">
                                 <div class="col-sm-8">
                                     <select class="form-control" name="location">
-                                        <option value="">Select Location</option>
+                                        <option value="0"> All Location</option>
                                         <?php
                                         $sql_location = "SELECT * FROM `location`";
                                         $result_location = $conn->query($sql_location);
@@ -30,32 +37,37 @@ $result = $conn->query($sql);
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a type="submit" class="btn btn-warning"><i class="fa fa-search"></i></a>
+                                    <button type="submit" name="search" class="btn btn-warning"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 wow fadeInRight">
-                <div class="panel panel-info">
-                    <div class="panel-heading">All Addoption Post</div>
+            <div class="col-sm-8 wow fadeInRight">
+                <h2>All Adoption Posts</h2>
+                <div class="panel">
                     <div class="panel-body">
                         <div class="row">
                             <?php foreach ($result as $key => $value) { ?>
-                                <div class="col-sm-12 "><a href=""></a>
-                                    <div class="media service-box">
-                                        <div class="pull-left">
-                                            <img height="60px" src="images/uploadedImages/<?= $value['image'] ?>" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><?= $value['title'] ?></h4>
-                                            <p>Description: <?= $value['description'] ?></p>
-                                            <p>Location: <?= $value['location'] ?></p>
-                                            <a class="btn btn-info btn-block btn-sm" href="adoption_details.php?id=<?= $value['id']; ?>">View all Details</a>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-4 text-center">
+                                                <img height="100px" width="130px" src="images/uploadedImages/<?= $value['image'] ?>" alt="">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <h4 class="media-heading"><?= $value['title'] ?></h4>
+                                                <br>
+                                                <p>Location: <label class="label label-default"><?= $value['location'] ?></label></p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <a class="btn btn-info btn-offset-2 btn-sm-4 pull-right" href="adoption_details.php?id=<?= $value['id']; ?>">View Details</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             <?php
                             }
                             ?>

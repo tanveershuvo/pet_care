@@ -40,10 +40,10 @@ if (isset($_POST['schedule_add'])) {
     if ($conn->query($sql)) {
         $_SESSION['msg'] = "Service Added successfully";
         $_SESSION['type'] = "success";
-        header('Location:../service-list');
+        header('Location:../vet-schedule');
     } else {
         $_SESSION['msg'] = "Something went Wrong!!Try again Later!";
         $_SESSION['type'] = "danger";
-        header('Location:../service-list');
+        header('Location:../vet-schedule');
     }
 }

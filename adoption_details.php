@@ -24,27 +24,26 @@ foreach ($result as $key => $row) {
 <section>
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title text-center wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">Full Details</h2>
+            <h2 class="section-title text-center wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">Adoption Details</h2>
             <p class="text-center wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-                <?php echo $description; ?>
+                <?php echo $title; ?>
             </p>
         </div>
         <div class="row">
             <div class="col-sm-6 wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;">
-                <img class="img-responsive" src="images/uploadedImages/<?= $row['image'] ?>" alt="">
+                <img height="450px" width="500px" src="images/uploadedImages/<?= $row['image'] ?>" alt="">
             </div>
 
             <div class="col-sm-6 wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;">
                 <h3 class="column-title">Post Details</h3>
-                <p><b> <i class="fa fa-info-circle" aria-hidden="true"></i> About : </b><?php echo $title; ?></p>
+                <p><b> <i class="fa fa-info-circle" aria-hidden="true"></i> </b><?php echo $description; ?></p>
                 <p><b> <i class="fa fa-user" aria-hidden="true"></i> Owner Name : </b><?php echo $name; ?></p></b>
-                <p><b> <i class="fa fa-envelope" aria-hidden="true"></i> Email Address: </b><?php echo $email; ?></p>
-                <p><b> <i class="fa fa-map-marker" aria-hidden="true"></i> Address : </b><?php echo $address; ?></p>
+                <p><b> <i class="fa fa-envelope" aria-hidden="true"></i> Contact info: </b><?php echo $contact_info; ?></p>
                 <p><b> <i class="fa fa-map-marker" aria-hidden="true"></i> Location : </b><?php echo $loaction; ?></p>
 
 
             </div>
-        </div>
+        </div></br>
     </div>
 </section>
 <?php include_once 'includes/footer.php' ?>
