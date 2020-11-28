@@ -3,6 +3,14 @@ include_once("../dbConnection/dbCon.php");
 $conn = connect();
 $sql = "SELECT * FROM services Order By service_name ASC ";
 $results = $conn->query($sql);
+$sql1 = "SELECT * FROM `weekdays`";
+$weekdays = $conn->query($sql1);
+
+$sql2 = "SELECT * FROM `slot`";
+$slots = $conn->query($sql2);
+
+$sql3 = "SELECT * FROM `services`";
+$services = $conn->query($sql3);
 
 ?>
 <?php include 'includes/header.php'; ?>
@@ -39,28 +47,21 @@ $results = $conn->query($sql);
             <div class="form-group row">
               <label for="inputName2" class="col-sm-4 col-form-label">Select days your are available</label>
               <div class="col-sm-8">
-                <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select class="select2" name="week_days[]" multiple="multiple" data-placeholder="Select days you are available" style="width: 100%;">
+                  <?php foreach ($weekdays as $weekday) { ?>
+                    <option <?= $weekday['id'] ?>><?= $weekday['days'] ?></option>
+                  <?php } ?>
+
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label for="inputName2" class="col-sm-4 col-form-label">Select time slot you are available in above days</label>
               <div class="col-sm-8 ">
-                <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select class="select2" name="slots[]" multiple="multiple" data-placeholder="Select time slots you are available" style="width: 100%;">
+                  <?php foreach ($slots as $slot) { ?>
+                    <option <?= $slot['id'] ?>><?= $slot['time'] ?></option>
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -70,14 +71,10 @@ $results = $conn->query($sql);
                                                     echo $row['education'];
                                                   } ?>" class="col-sm-4 col-form-label">Select services you offers:</label>
               <div class="col-sm-8">
-                <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select class="select2" name="services[]" multiple="multiple" data-placeholder="Select services you offer" style="width: 100%;">
+                  <?php foreach ($services as $service) { ?>
+                    <option <?= $service['id'] ?>><?= $service['service_name'] ?></option>
+                  <?php } ?>
                 </select>
               </div>
             </div>
