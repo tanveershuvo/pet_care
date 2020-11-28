@@ -12,6 +12,8 @@ $slots = $conn->query($sql2);
 $sql3 = "SELECT * FROM `services`";
 $services = $conn->query($sql3);
 $selectweek = [];
+$selectSlot = [];
+$selectService = [];
 if (isset($_GET['edit'])) {
   session_start();
   $id = $_SESSION['id'];
@@ -27,11 +29,20 @@ if (isset($_GET['edit'])) {
   }
 
   $esql2 = "SELECT slot_id FROM `vet_available_slot` WHERE vet_id = '$id'";
-  $slotsData = $conn->query($esql2);
 
-  $weekSlot = [];
-  foreach ($slotsData as $valdata) {
-    $weekSlot[] = $valdata['slot_id'];
+  $slotsDatas = $conn->query($esql2);
+
+  $selectSlot = [];
+  foreach ($slotsDatas as $slotsData) {
+    $selectSlot[] = $slotsData['slot_id'];
+  }
+
+  $esql3 = "SELECT service_id FROM `vet_available_service` WHERE vet_id = '$id'";
+  $serviceDatas = $conn->query($esql3);
+
+  $selectService = [];
+  foreach ($serviceDatas as $serviceData) {
+    $selectService[] = $serviceData['service_id'];
   }
 }
 
@@ -92,7 +103,7 @@ if (isset($_GET['edit'])) {
               <div class="col-sm-8 ">
                 <select class="select2" name="slots[]" multiple="multiple" data-placeholder="Select time slots you are available" style="width: 100%;">
                   <?php foreach ($slots as $slot) { ?>
-                    <option value="<?= $slot['id'] ?>"><?= $slot['time'] ?></option>
+                    <option value="<?= $slot['id'] ?>" <?php if (in_array($slot['id'], $selectSlot)) { ?> selected <?php } ?>><?= $slot['time'] ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -105,7 +116,7 @@ if (isset($_GET['edit'])) {
               <div class="col-sm-8">
                 <select class="select2" name="services[]" multiple="multiple" data-placeholder="Select services you offer" style="width: 100%;">
                   <?php foreach ($services as $service) { ?>
-                    <option value="<?= $service['id'] ?>"><?= $service['service_name'] ?></option>
+                    <option value="<?= $service['id'] ?>" <?php if (in_array($service['id'], $selectService)) { ?> selected <?php } ?>><?= $service['service_name'] ?></option>
                   <?php } ?>
                 </select>
               </div>

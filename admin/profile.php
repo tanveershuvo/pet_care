@@ -195,7 +195,7 @@ include 'includes/sidebar.php';
 
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-info">Update</button>
+                        <button type="submit" name="update_profile" class="btn btn-info">Update</button>
                       </div>
                     </div>
                   </form>
@@ -222,7 +222,7 @@ include 'includes/sidebar.php';
 
                     <div class="form-group row ">
                       <div class="offset-sm-3 col-sm-10">
-                        <button type="submit" class="btn btn-info mt-4">Update</button>
+                        <button type="submit" name="update_password" class="btn btn-info mt-4">Update</button>
                       </div>
                     </div>
                   </form>

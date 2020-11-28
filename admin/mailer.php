@@ -406,7 +406,7 @@ class Mailing
 								<td class="attributes_item">
 								  <span class="f-fallback">
 			<strong>Click the below link to access your account</strong><br>
-			<a href="http://localhost/pet/admin/account-setup?verify-id=' . $id . '">Petcare account setup link</a>
+			<a href="http://localhost/pet-care/admin/account-setup?verify-id=' . $id . '">Petcare account setup link</a>
 		  </span>
 								</td>
 							  </tr>
