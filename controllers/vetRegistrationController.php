@@ -7,6 +7,7 @@ if (isset($_POST['vet_register'])) {
     $bmdc_reg_num = mysqli_real_escape_string($conn, $_POST['bmdc_reg_num']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
 
     $image = 0;
     if (isset($_FILES["image"]["name"]) && $_FILES["image"]["name"] != '') {
@@ -54,8 +55,8 @@ if (isset($_POST['vet_register'])) {
         $_SESSION['type'] = "danger";
         header('Location:../vet-registration');
     } else {
-        $sql = "INSERT INTO `vetDetails`(`full_name`,`bmdc_registered_number`, `email_address`, `gender`,`pro_pic`) 
-                VALUES ('$fullname','$bmdc_reg_num','$email','$gender','$image')";
+        $sql = "INSERT INTO `vetDetails`(`full_name`,`bmdc_registered_number`, `email_address`, `gender`,`pro_pic`,`location_id`) 
+                VALUES ('$fullname','$bmdc_reg_num','$email','$gender','$image','$location')";
 
         if ($conn->query($sql)) {
             $_SESSION['msg'] = "You will receive a mail after admin approval!!";

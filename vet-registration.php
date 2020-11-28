@@ -2,6 +2,10 @@
 include_once 'includes/head.php';
 include_once 'includes/header.php';
 ?>
+<?php
+include_once 'dbConnection/dbCon.php';
+$conn = connect();
+?>
 
 <section id="contact">
     <div class="container-wrapper">
@@ -35,9 +39,24 @@ include_once 'includes/header.php';
                             <div class="form-group">
                                 <label for="sel1">Select Gender:</label>
                                 <select class="form-control" name="gender">
+                                    <option value="">Please Select</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sel1">Select Location:</label>
+                                <select class="form-control" name="location">
+                                    <option value="">Please Select</option>
+                                    <?php
+                                    $sql_location = "SELECT * FROM `location`";
+                                    $result_location = $conn->query($sql_location);
+                                    foreach ($result_location as $key => $row) {
+                                    ?>
+                                        <option value="<?= $row['id'] ?>"><?= $row['location'] ?></option>
+                                    <?php } ?>
+
                                 </select>
                             </div>
                             <div class="form-group" style="margin-top: 25px;">
