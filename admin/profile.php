@@ -192,18 +192,19 @@ include 'includes/sidebar.php';
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane" id="settings">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" action="update_password.php" method="post">
+                    <input type="hidden" value="<?php echo $id; ?>" name="id">
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-4 col-form-label">Password</label>
                       <div class="col-sm-8">
-                        <input type="password" class="form-control" id="inputName" placeholder="Name">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="6" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-4 col-form-label">Confirm Password</label>
                       <div class="col-sm-8">
-                        <input type="password" class="form-control" id="inputName" placeholder="Name">
+                        <input type="password" class="form-control" name="con_password" id="con_password" placeholder="Confirm Password" oninput="check(this)" required>
                       </div>
                     </div>
 
@@ -229,5 +230,14 @@ include 'includes/sidebar.php';
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
+<script language='javascript' type='text/javascript'>
+  function check(input) {
+    if (input.value != document.getElementById('password').value) {
+      input.setCustomValidity('Password Must be Matching.');
+    } else {
+      // input is valid -- reset the error message
+      input.setCustomValidity('');
+    }
+  }
+</script>
 <?php include 'includes/footer.php'; ?>
