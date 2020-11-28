@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 05:07 AM
+-- Generation Time: Nov 28, 2020 at 07:25 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -45,7 +45,7 @@ CREATE TABLE `adoptionpost` (
 --
 
 INSERT INTO `adoptionpost` (`id`, `title`, `description`, `image`, `location_id`, `address`, `contact_info`, `user_id`, `status`) VALUES
-(3, 'Velit anim dolor si', 'Iste qui voluptatem ', '20201127161233_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 'Odit voluptatem Inc', 'Necessitatibus nulla', 3, 0);
+(5, 'New ', 'Description', '20201128054304_77397329_2538762309547797_3433006727363035136_o.jpg', 0, '', '22626262', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -102,6 +102,14 @@ CREATE TABLE `location` (
   `location` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`id`, `location`) VALUES
+(1, 'Dhanmondi'),
+(2, 'Mohammodpur');
+
 -- --------------------------------------------------------
 
 --
@@ -132,6 +140,16 @@ CREATE TABLE `slot` (
   `id` int(11) NOT NULL,
   `time` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `slot`
+--
+
+INSERT INTO `slot` (`id`, `time`) VALUES
+(1, '8 am -9 am'),
+(2, '9 am - 10 am'),
+(3, '10 am - 11 am'),
+(4, '11 am- 12 pm');
 
 -- --------------------------------------------------------
 
@@ -168,20 +186,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(2, 'Tanvir', 'tanveershuvos@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vetavalability`
---
-
-CREATE TABLE `vetavalability` (
-  `id` int(11) NOT NULL,
-  `vet_id` int(11) NOT NULL,
-  `week_days` int(11) NOT NULL,
-  `slot` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(2, 'Tanvir', 'tanveershuvos@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 2),
+(3, 'simik', 'tanvir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 3);
 
 -- --------------------------------------------------------
 
@@ -202,6 +208,7 @@ CREATE TABLE `vetdetails` (
   `visiting_charge` int(11) NOT NULL,
   `short_bio` varchar(255) NOT NULL,
   `pro_pic` varchar(200) NOT NULL,
+  `location_id` int(11) NOT NULL,
   `avg_rating` float(10,2) NOT NULL,
   `is_approved` tinyint(1) DEFAULT -1,
   `is_completed` int(4) NOT NULL DEFAULT -1
@@ -211,8 +218,8 @@ CREATE TABLE `vetdetails` (
 -- Dumping data for table `vetdetails`
 --
 
-INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `avg_rating`, `is_approved`, `is_completed`) VALUES
-(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 0, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 0.00, 1, 0);
+INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `location_id`, `avg_rating`, `is_approved`, `is_completed`) VALUES
+(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 0, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 0.00, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -230,13 +237,35 @@ CREATE TABLE `vetrating` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `vet_available_days`
+--
+
+CREATE TABLE `vet_available_days` (
+  `id` int(11) NOT NULL,
+  `vet_id` int(11) NOT NULL,
+  `week_days` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `weekdays`
 --
 
 CREATE TABLE `weekdays` (
   `id` int(11) NOT NULL,
-  `days` int(11) NOT NULL
+  `days` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `weekdays`
+--
+
+INSERT INTO `weekdays` (`id`, `days`) VALUES
+(1, 'Sunday'),
+(2, 'Monday'),
+(5, 'Tuesday'),
+(6, 'Wednesday');
 
 --
 -- Indexes for dumped tables
@@ -307,15 +336,6 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `vetavalability`
---
-ALTER TABLE `vetavalability`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `vet_id` (`vet_id`),
-  ADD KEY `slot` (`slot`),
-  ADD KEY `week_days` (`week_days`);
-
---
 -- Indexes for table `vetdetails`
 --
 ALTER TABLE `vetdetails`
@@ -331,6 +351,13 @@ ALTER TABLE `vetrating`
   ADD KEY `vet_id` (`vet_id`);
 
 --
+-- Indexes for table `vet_available_days`
+--
+ALTER TABLE `vet_available_days`
+  ADD KEY `vetAvalability_ibfk_1` (`vet_id`),
+  ADD KEY `vetAvalability_ibfk_3` (`week_days`);
+
+--
 -- Indexes for table `weekdays`
 --
 ALTER TABLE `weekdays`
@@ -344,7 +371,7 @@ ALTER TABLE `weekdays`
 -- AUTO_INCREMENT for table `adoptionpost`
 --
 ALTER TABLE `adoptionpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `appointment`
@@ -368,7 +395,7 @@ ALTER TABLE `donationpost`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `services`
@@ -380,7 +407,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `slot`
 --
 ALTER TABLE `slot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaction`
@@ -392,13 +419,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `vetavalability`
---
-ALTER TABLE `vetavalability`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `vetdetails`
@@ -416,7 +437,7 @@ ALTER TABLE `vetrating`
 -- AUTO_INCREMENT for table `weekdays`
 --
 ALTER TABLE `weekdays`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -458,14 +479,6 @@ ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `vetavalability`
---
-ALTER TABLE `vetavalability`
-  ADD CONSTRAINT `vetAvalability_ibfk_1` FOREIGN KEY (`vet_id`) REFERENCES `vetdetails` (`id`),
-  ADD CONSTRAINT `vetAvalability_ibfk_2` FOREIGN KEY (`slot`) REFERENCES `slot` (`id`),
-  ADD CONSTRAINT `vetAvalability_ibfk_3` FOREIGN KEY (`week_days`) REFERENCES `weekdays` (`id`);
-
---
 -- Constraints for table `vetdetails`
 --
 ALTER TABLE `vetdetails`
@@ -477,6 +490,13 @@ ALTER TABLE `vetdetails`
 ALTER TABLE `vetrating`
   ADD CONSTRAINT `vetRating_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `vetRating_ibfk_2` FOREIGN KEY (`vet_id`) REFERENCES `vetdetails` (`id`);
+
+--
+-- Constraints for table `vet_available_days`
+--
+ALTER TABLE `vet_available_days`
+  ADD CONSTRAINT `vetAvalability_ibfk_1` FOREIGN KEY (`vet_id`) REFERENCES `vetdetails` (`id`),
+  ADD CONSTRAINT `vetAvalability_ibfk_3` FOREIGN KEY (`week_days`) REFERENCES `weekdays` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
