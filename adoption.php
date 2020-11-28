@@ -32,7 +32,7 @@ $result = $conn->query($sql);
                                         <div class="media-body">
                                             <h4 class="media-heading"><?= $value['title'] ?></h4>
                                             <p>Description: <?= $value['description'] ?></p>
-                                            <a class="btn btn-info btn-block btn-sm" href="addoption_details.php?id=<?= $value['id']; ?>">View all Details</a>
+                                            <a class="btn btn-info btn-block btn-sm" href="adoption_details.php?id=<?= $value['id']; ?>">View all Details</a>
                                         </div>
                                     </div>
                                 </div>
