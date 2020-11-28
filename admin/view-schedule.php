@@ -6,7 +6,6 @@ $sql = "SELECT * FROM vetdetails WHERE user_id = '$id' ";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
 $sql2 = "SELECT * FROM vet_available_days as v,weekdays as w WHERE v.week_days = w.id AND vet_id = '$id' ";
-
 $days = $conn->query($sql2);
 $sql3 = "SELECT * FROM vet_available_slot as v,slot as s WHERE v.slot_id = s.id AND vet_id = '$id' ";
 $slots = $conn->query($sql3);
