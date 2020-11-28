@@ -57,6 +57,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="vet-schedule" class="nav-link <?= ($activePage == 'vet-schedule') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Vet Schedule
+              </p>
+            </a>
+          </li>
         <?php } ?>
       </ul>
     </nav>
