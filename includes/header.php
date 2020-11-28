@@ -16,6 +16,7 @@
                     <li class="scroll active"><a href="index">Home</a></li>
                     <li class="scroll"><a href="services">Our Services</a></li>
                     <li class="scroll"><a href="contact">Contact</a></li>
+                    <li class="scroll"><a href="adoption">Adoption</a></li>
 
                     <?php if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn']) { ?>
                         <li class="scroll"><a href="dashboard">My Dashboard</a></li>

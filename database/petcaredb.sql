@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2020 at 07:38 PM
+-- Generation Time: Nov 28, 2020 at 05:07 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -203,15 +203,16 @@ CREATE TABLE `vetdetails` (
   `short_bio` varchar(255) NOT NULL,
   `pro_pic` varchar(200) NOT NULL,
   `avg_rating` float(10,2) NOT NULL,
-  `is_approved` tinyint(1) DEFAULT -1
+  `is_approved` tinyint(1) DEFAULT -1,
+  `is_completed` int(4) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `vetdetails`
 --
 
-INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `avg_rating`, `is_approved`) VALUES
-(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 0, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 0.00, 1);
+INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `avg_rating`, `is_approved`, `is_completed`) VALUES
+(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 0, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 0.00, 1, 0);
 
 -- --------------------------------------------------------
 

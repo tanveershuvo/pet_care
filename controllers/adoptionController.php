@@ -6,7 +6,7 @@ $conn = connect();
 if (isset($_POST['adoption_add'])) {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $location = 1;
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $contact_info = mysqli_real_escape_string($conn, $_POST['contact_info']);
     $user_id = $_SESSION['id'];
@@ -31,8 +31,10 @@ if (isset($_POST['adoption_add'])) {
         if ($_FILES["image"]["size"] > 5000000) {
             $uploadOk = 0;
         }
-        if ($imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif") {
+        if (
+            $imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
             $uploadOk = 0;
         }
         if ($uploadOk == 0) {
@@ -65,7 +67,7 @@ if (isset($_POST['adoption_add'])) {
 if (isset($_POST['adoption_edit'])) {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $location = 1;
+    $location = mysqli_real_escape_string($conn, $_POST['location']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $contact_info = mysqli_real_escape_string($conn, $_POST['contact_info']);
     $user_id = $_POST['id'];
@@ -90,8 +92,10 @@ if (isset($_POST['adoption_edit'])) {
         if ($_FILES["image"]["size"] > 5000000) {
             $uploadOk = 0;
         }
-        if ($imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif") {
+        if (
+            $imageFileType != "JPG" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
             $uploadOk = 0;
         }
         if ($uploadOk == 0) {
@@ -118,8 +122,6 @@ if (isset($_POST['adoption_edit'])) {
         $_SESSION['type'] = "danger";
         header('Location:../adoption-post-list.php');
     }
-
-
 }
 
 if (isset($_POST['adopted'])) {
@@ -134,5 +136,4 @@ if (isset($_POST['adopted'])) {
         $_SESSION['type'] = "danger";
         header('Location:../adoption-post-list.php');
     }
-
 }
