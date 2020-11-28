@@ -124,7 +124,7 @@ include 'includes/sidebar.php';
 
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
-                  <form class="form-horizontal" action="update_profile.php" method="post">
+                  <form class="form-horizontal" action="controllers/updateprofileControllers.php" method="post">
                     <div class="form-group row">
                       <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
                       <label for="inputName" class="col-sm-2 col-form-label">Title</label>

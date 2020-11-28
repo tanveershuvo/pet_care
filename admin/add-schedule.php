@@ -35,13 +35,13 @@ $services = $conn->query($sql3);
 
       <div class="card">
         <div class="card-body">
-          <form class="form-horizontal">
+          <form action="controllers/scheduleController.php" method="post">
             <div class="form-group row">
               <label for="inputName" class="col-sm-4 col-form-label">Visiting Charge</label>
               <div class="col-sm-8">
-                <input type="email" class="form-control" id="inputName" value="<?php if (isset($row['title'])) {
+                <input type="text" class="form-control" name="visiting" value="<?php if (isset($row['title'])) {
                                                                                   echo $row['title'];
-                                                                                } ?>" placeholder="Title">
+                                                                                } ?>" placeholder="visiting">
               </div>
             </div>
             <div class="form-group row">
@@ -49,18 +49,18 @@ $services = $conn->query($sql3);
               <div class="col-sm-8">
                 <select class="select2" name="week_days[]" multiple="multiple" data-placeholder="Select days you are available" style="width: 100%;">
                   <?php foreach ($weekdays as $weekday) { ?>
-                    <option <?= $weekday['id'] ?>><?= $weekday['days'] ?></option>
+                    <option value="<?= $weekday['id'] ?>"><?= $weekday['days'] ?></option>
                   <?php } ?>
 
                 </select>
               </div>
             </div>
-            <div class="form-group row">
+            <div class=" form-group row">
               <label for="inputName2" class="col-sm-4 col-form-label">Select time slot you are available in above days</label>
               <div class="col-sm-8 ">
                 <select class="select2" name="slots[]" multiple="multiple" data-placeholder="Select time slots you are available" style="width: 100%;">
                   <?php foreach ($slots as $slot) { ?>
-                    <option <?= $slot['id'] ?>><?= $slot['time'] ?></option>
+                    <option value="<?= $slot['id'] ?>"><?= $slot['time'] ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -73,15 +73,15 @@ $services = $conn->query($sql3);
               <div class="col-sm-8">
                 <select class="select2" name="services[]" multiple="multiple" data-placeholder="Select services you offer" style="width: 100%;">
                   <?php foreach ($services as $service) { ?>
-                    <option <?= $service['id'] ?>><?= $service['service_name'] ?></option>
+                    <option value="<?= $service['id'] ?>"><?= $service['service_name'] ?></option>
                   <?php } ?>
                 </select>
               </div>
             </div>
 
-            <div class="form-group row">
-              <div class="offset-md-4 col-md-10">
-                <button type="submit" class="btn btn-info mt-4">Create Schedule</button>
+            <div class=" form-group row">
+              <div class="offset-sm-2 col-sm-10">
+                <button type="submit" name="schedule_add" class="btn btn-info mt-4">Create Schedule</button>
               </div>
             </div>
           </form>
