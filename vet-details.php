@@ -93,11 +93,15 @@ $services = $conn->query($sql4);
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Make Appointment</h4>
             </div>
-            <form id="form" action="" method="post">
+            <form id="form" action="controllers/paymentController.php" method="post">
                 <div class="modal-body">
-                    <label>You will be Charged <?php echo $visiting_charge; ?> tk</label>
+                    <input type="hidden" name="charge" value="<?= $visiting_charge ?>">
+                    <input type="hidden" name="cus_mail" value="<?= $_SESSION['email'] ?>">
+                    <input type="hidden" name="cus_name" value="<?= $_SESSION['name'] ?>">
+                    <label>You will be Charged <?= $visiting_charge ?> tk</label>
                     <hr>
-                    <input type="hidden" id="vet_id" value="<?= $row['user_id'] ?>">
+                    <div id="msg" class="alert alert-danger" style="display:none;">The selected time slot on selected day is not available</div>
+                    <input type="hidden" id="vet_id" name="vet_id" value="<?= $row['user_id'] ?>">
                     <div class="form-group">
                         <label for="sel1">Select Apointment Date:</label>
                         <input type="text" class="form-control" readonly="readonly" name="date" id="datepicker">
@@ -115,7 +119,7 @@ $services = $conn->query($sql4);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Pay to confirm</button>
+                    <button type="submit" name="payment" class="btn btn-primary">Pay to confirm</button>
                 </div>
             </form>
         </div>
@@ -134,9 +138,8 @@ $services = $conn->query($sql4);
         });
     });
 
-
-    $(document).ready(function() {
-        $('#form').submit(function() {
+    $('#form').submit(function() {
+        if (!$(this).attr('validated')) {
             var date = $("#datepicker").val();
             var slot = $("#slot").val();
             var vet_id = $("#vet_id").val();
@@ -151,16 +154,17 @@ $services = $conn->query($sql4);
                 success: function(response) {
                     if (response == 'available') {
                         console.log(response);
+                        $('#form').attr('validated', true);
                         $('#form').submit();
-                        event.preventDefault();
                     } else {
-
+                        console.log(response);
+                        $("#msg").css('display', 'block');
                     }
 
                 }
             });
-            event.preventDefault();
-
-        });
+            return false;
+        }
+        return true;
     });
 </script>

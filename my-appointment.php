@@ -51,7 +51,7 @@ $result = $conn->query($sql);
             </div>
         <?php };
         unset($_SESSION['msg']); ?>
-        <a href="adoption-post.php" class="btn btn-success">+ Add New Post</a>
+
         <hr>
         <div class="panel panel-primary col-md-12">
 
