@@ -56,21 +56,21 @@ include_once 'includes/header.php';
             <form action="controllers/adoptionController.php" method="post" enctype="multipart/form-data" role="form" style="display: block;">
                 <input type="hidden" name="id" value="<?php if (isset($row['id'])) {
                                                             echo $row['id'];
-                                                        } ?>">
+                                                        } ?>" required>
                 <input type="hidden" name="image" value="<?php if (isset($row['image'])) {
                                                                 echo $row['image'];
-                                                            } ?>">
+                                                            } ?>" required>
                 <div class="form-group" style="margin-top: 25px;">
                     <label>Title :</label>
                     <input type="text" name="title" value="<?php if (isset($row['title'])) {
                                                                 echo $row['title'];
-                                                            } ?>" class="form-control" placeholder="Title">
+                                                            } ?>" class="form-control" placeholder="Title" required>
                 </div>
                 <div class="form-group">
                     <label>Description :</label>
-                    <textarea name="description" class="form-control" placeholder="Description"><?php if (isset($row['description'])) {
-                                                                                                    echo $row['description'];
-                                                                                                } ?></textarea>
+                    <textarea required name="description" class="form-control" placeholder="Description"><?php if (isset($row['description'])) {
+                                                                                                                echo $row['description'];
+                                                                                                            } ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Image :</label>
@@ -78,7 +78,7 @@ include_once 'includes/header.php';
                 </div>
                 <div class="form-group">
                     <label>Location :</label>
-                    <select name="location" class="form-control select2" style="width: 100%;">
+                    <select name="location" class="form-control select2" style="width: 100%;" required>
                         <option>Select from here</option>
                         <?php foreach ($loc as $location) { ?>
                             <option value="<?= $location['id'] ?>" <?php if (isset($row['location_id']) && ($location['id'] == $row['location_id'])) { ?>selected<?php } ?>><?= $location['location'] ?></option>
@@ -89,7 +89,7 @@ include_once 'includes/header.php';
                     <label>Contact Info :</label>
                     <input type="text" name="contact_info" value="<?php if (isset($row['contact_info'])) {
                                                                         echo $row['contact_info'];
-                                                                    } ?>" class="form-control" placeholder="Mail or phone number">
+                                                                    } ?>" class="form-control" placeholder="Mail or phone number" required>
                 </div>
 
                 <div class="form-group">

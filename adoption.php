@@ -24,7 +24,7 @@ if (isset($_POST['search']) && $_POST['location'] != 0) {
                         <form action="" method="post">
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    <select class="form-control" name="location">
+                                    <select class="form-control" name="location" required>
                                         <option value="0"> All Location</option>
                                         <?php
                                         $sql_location = "SELECT * FROM `location`";

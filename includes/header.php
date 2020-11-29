@@ -19,6 +19,7 @@
                     <li class="scroll"><a href="adoption">Adoption</a></li>
 
                     <?php if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn']) { ?>
+                        <li class="scroll"><a href="vet">Vet</a></li>
                         <li class="scroll"><a href="dashboard">My Dashboard</a></li>
                         <li class="scroll"><a href="logout">Logout</a></li>
 

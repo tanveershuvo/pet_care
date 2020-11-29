@@ -26,19 +26,19 @@ $conn = connect();
                         <form id="login-form" action="controllers/vetRegistrationController.php" method="post" role="form" enctype="multipart/form-data" style="display: block;">
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>Full Name :</label>
-                                <input type="text" name="fullname" class="form-control" placeholder="Username">
+                                <input type="text" name="fullname" class="form-control" placeholder="Username" required>
                             </div>
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>BMDC registration Number :</label>
-                                <input type="text" name="bmdc_reg_num" class="form-control" placeholder="Username">
+                                <input type="text" name="bmdc_reg_num" class="form-control" placeholder="Username" required>
                             </div>
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>Email :</label>
-                                <input type="email" name="email" class="form-control" placeholder="Username">
+                                <input type="email" name="email" class="form-control" placeholder="Username" required>
                             </div>
                             <div class="form-group">
                                 <label for="sel1">Select Gender:</label>
-                                <select class="form-control" name="gender">
+                                <select class="form-control" name="gender" required>
                                     <option value="">Please Select</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -47,7 +47,7 @@ $conn = connect();
                             </div>
                             <div class="form-group">
                                 <label for="sel1">Select Location:</label>
-                                <select class="form-control" name="location">
+                                <select class="form-control" name="location" required>
                                     <option value="">Please Select</option>
                                     <?php
                                     $sql_location = "SELECT * FROM `location`";
@@ -61,7 +61,7 @@ $conn = connect();
                             </div>
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>Profile Image :</label>
-                                <input type="file" name="image" class="form-control">
+                                <input type="file" name="image" class="form-control" required>
                             </div>
 
                             <div class="form-group">

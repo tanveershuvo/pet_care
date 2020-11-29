@@ -7,6 +7,8 @@ $id = $_SESSION['id'];
 $sql = "SELECT *, adoptionPost.id as 'a_id' FROM adoptionPost ,location WHERE adoptionpost.location_id = location.id AND user_id = '$id'";
 $result = $conn->query($sql);
 
+$sql_tran = "SELECT * FROM appointment,transactions WHERE appointment.transaction_id = transactions.transaction_id AND appointment.user_id = '$id'";
+$result_tran = $conn->query($sql_tran);
 ?>
 <div class="container">
     <div class="col col-md-3">
@@ -59,45 +61,25 @@ $result = $conn->query($sql);
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
-                        <th>Image</th>
-                        <th>Location</th>
-                        <th>Contact Info</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Transaction No</th>
+                        <th>Payment Status</th>
+                        <th>Amount</th>
+                        <th>Payment Date/Time</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($result as $key => $value) {
+                    foreach ($result_tran as $key => $value) {
                     ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
-                            <td><?= $value['title'] ?></td>
-                            <td><img src="images/uploadedImages/<?= $value['image'] ?>" height="80px" width="100px">
-                            </td>
-                            <td><?= $value['location'] ?></td>
-                            <td><?= $value['contact_info'] ?></td>
-                            <td><?php
-                                if ($value['status'] == 0) {
-                                ?>
-                                    <form action="controllers/adoptionController.php" method="post">
-                                        <input type="hidden" name="id" value="<?= $value['a_id'] ?>">
-                                        <button type="submit" name="adopted" class="btn btn-warning">Done</button>
-                                    </form>
-                                <?php
-                                } else {
-                                ?>
-                                    Adopted
-                                <?php } ?>
-                            </td>
-                            <td>
-                                <?php if ($value['status'] == 0) { ?>
-                                    <a href="adoption-post.php?edit=<?= $value['a_id'] ?>" class="btn btn-info">Edit</a>
-                                <?php } else { ?>
-                                    None
-                                <?php } ?>
-                            </td>
+                            <td><?= $value['transaction_id'] ?></td>
+                            <td><?= $value['payment_status'] ?></td>
+
+                            <td><?= $value['amount'] ?></td>
+                            <td><?= $value['payment_date'] ?></td>
+                            
                         </tr>
                     <?php
                     }

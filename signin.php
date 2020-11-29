@@ -13,23 +13,20 @@ include_once 'includes/header.php';
                         <hr>
                         <?php
                         if (isset($_SESSION['msg'])) {
-                            ?>
+                        ?>
                             <div class="alert alert-<?= $_SESSION['type'] ?> ">
                                 <h5><?= $_SESSION['msg'] ?></h5>
                             </div>
                         <?php };
                         unset($_SESSION['msg']); ?>
-                        <form id="login-form" action="controllers/signinController.php" method="post" role="form"
-                              style="display: block;">
+                        <form id="login-form" action="controllers/signinController.php" method="post" role="form" style="display: block;">
                             <div class="form-group" style="margin-top: 25px;">
                                 <label>Email :</label>
-                                <input type="email" name="email" id="username" class="form-control"
-                                       placeholder="Email">
+                                <input type="email" name="email" id="username" class="form-control" placeholder="Email" required>
                             </div>
                             <div class="form-group">
                                 <label>Password :</label>
-                                <input type="password" name="password" id="password"  class="form-control"
-                                       placeholder="Password">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                             </div>
                             <div class="form-group">
                                 <div class="row">
@@ -54,10 +51,9 @@ include_once 'includes/header.php';
             </div>
         </div>
     </div>
-</section><!--/#bottom-->
+</section>
+<!--/#bottom-->
 <?php
 include_once 'includes/footer.php';
 include_once 'includes/footer_script.php';
 ?>
-
-

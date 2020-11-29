@@ -52,11 +52,11 @@ include_once 'includes/header.php';
 
                 <div class="form-group" style="margin-top: 25px;">
                     <label>Name :</label>
-                    <input type="text" name="update_name" value="<?= $_SESSION['name'] ?>" class="form-control" placeholder="Username">
+                    <input type="text" name="update_name" value="<?= $_SESSION['name'] ?>" class="form-control" placeholder="Username" required>
                 </div>
                 <div class="form-group">
                     <label>New Password :</label>
-                    <input type="password" name="new_password" id="password" class="form-control" placeholder="Password">
+                    <input type="password" name="new_password" id="password" class="form-control" placeholder="Password" >
                 </div>
                 <div class="form-group">
                     <label>Confirm Password :</label>

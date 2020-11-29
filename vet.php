@@ -36,7 +36,7 @@ if (isset($_POST['search'])) {
                     <div class="panel-body">
                         <form action="" method="post">
                             <div class="form-group">
-                                <select class="form-control" name="location">
+                                <select class="form-control" name="location" required>
                                     <option value="0"> All Location</option>
                                     <?php
                                     $sql_location = "SELECT * FROM `location`";
@@ -49,7 +49,7 @@ if (isset($_POST['search'])) {
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" name="service">
+                                <select class="form-control" name="service" required>
                                     <option value="0"> All Services</option>
                                     <?php
                                     $sql_services = "SELECT * FROM `services`";

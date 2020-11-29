@@ -95,20 +95,20 @@ $services = $conn->query($sql4);
             </div>
             <form id="form" action="controllers/paymentController.php" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="charge" value="<?= $visiting_charge ?>">
-                    <input type="hidden" name="cus_mail" value="<?= $_SESSION['email'] ?>">
-                    <input type="hidden" name="cus_name" value="<?= $_SESSION['name'] ?>">
+                    <input type="hidden" name="charge" value="<?= $visiting_charge ?>" required>
+                    <input type="hidden" name="cus_mail" value="<?= $_SESSION['email'] ?>" required>
+                    <input type="hidden" name="cus_name" value="<?= $_SESSION['name'] ?>" required>
                     <label>You will be Charged <?= $visiting_charge ?> tk</label>
                     <hr>
                     <div id="msg" class="alert alert-danger" style="display:none;">The selected time slot on selected day is not available</div>
-                    <input type="hidden" id="vet_id" name="vet_id" value="<?= $row['user_id'] ?>">
+                    <input type="hidden" id="vet_id" name="vet_id" value="<?= $row['user_id'] ?>" required>
                     <div class="form-group">
                         <label for="sel1">Select Apointment Date:</label>
-                        <input type="text" class="form-control" readonly="readonly" name="date" id="datepicker">
+                        <input type="text" class="form-control" readonly="readonly" name="date" id="datepicker" required>
                     </div>
                     <div class="form-group">
                         <label for="sel1">Select Time Slot:</label>
-                        <select class="form-control" id="slot" name="slot">
+                        <select class="form-control" id="slot" name="slot" required>
                             <option>Select Time</option>
                             <?php foreach ($slots as $slot) { ?>
                                 <option value="<?= $slot['id'] ?>"><?= $slot['time'] ?></option>
