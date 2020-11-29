@@ -7,9 +7,9 @@ $post_data['store_passwd'] = "petca5fc309f79b313@ssl";
 $post_data['total_amount'] = $_SESSION['charge'];
 $post_data['currency'] = "BDT";
 $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
-$post_data['success_url'] = "http://localhost/pet-care/success";
-$post_data['fail_url'] = "http://localhost/pet-care/fail";
-$post_data['cancel_url'] = "http://localhost/pet-care/fail";
+$post_data['success_url'] = "http://localhost/pet-care/success.php";
+$post_data['fail_url'] = "http://localhost/pet-care/fail.php";
+$post_data['cancel_url'] = "http://localhost/pet-care/fail.php";
 # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
 
 # EMI INFO
