@@ -1,11 +1,8 @@
 <?php
 /* PHP */
-// server should keep session data for exactly (or at least) 1 week
-ini_set('session.gc_maxlifetime', 6048000);
-
-// each client should remember their session id for EXACTLY 1 week
-session_set_cookie_params(6048000);
-
+ini_set('session.gc_maxlifetime', 57600);
+ini_set('session.cookie_lifetime', 57600);
+ini_set('session.cache_expire', 57600);
 session_start();
 $post_data = array();
 $post_data['store_id'] = "petca5fc309f79b313";

@@ -1,5 +1,7 @@
 <?php
-session_set_cookie_params(720000);
+ini_set('session.gc_maxlifetime', 57600);
+ini_set('session.cookie_lifetime', 57600);
+ini_set('session.cache_expire', 57600);
 session_start();
 
 $_SESSION['vet_id'] = $_POST['vet_id'];

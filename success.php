@@ -1,8 +1,7 @@
 <?php
-ini_set('session.gc_maxlifetime', 6048000);
-
-// each client should remember their session id for EXACTLY 1 week
-session_set_cookie_params(6048000);
+ini_set('session.gc_maxlifetime', 57600);
+ini_set('session.cookie_lifetime', 57600);
+ini_set('session.cache_expire', 57600);
 session_start();
 include_once("dbConnection/dbCon.php");
 $conn = connect();
@@ -60,7 +59,7 @@ if ($code == 200 && !(curl_errno($handle))) {
     $validated_on = $result->validated_on;
     $gw_version = $result->gw_version;
     if ($status = 'VALID') {
-        $u_id = $_SESSION['id'];
+        $u_id = 3;
         $v_id = $_SESSION['vet_id'];
         $date = $_SESSION['date'];
         $slot = $_SESSION['slot'];
