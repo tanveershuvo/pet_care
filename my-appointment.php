@@ -7,11 +7,11 @@ $id = $_SESSION['id'];
 $sql = "SELECT *, adoptionPost.id as 'a_id' FROM adoptionPost ,location WHERE adoptionpost.location_id = location.id AND user_id = '$id'";
 $result = $conn->query($sql);
 
-$sql_tran = "SELECT * FROM appointment,transactions WHERE appointment.transaction_id = transactions.transaction_id AND appointment.user_id = '$id'";
+$sql_tran = "SELECT * FROM appointment as a,transactions as t, vetdetails as v, slot as s WHERE a.transaction_id = t.transaction_id AND a.vet_id = v.user_id AND a.slot_id = s.id AND a.user_id = '$id'";
 $result_tran = $conn->query($sql_tran);
 ?>
-<div class="container">
-    <div class="col col-md-3">
+<div class="container-fluid">
+    <div class="col col-md-2">
         <div class="panel-group" id="accordion">
 
 
@@ -44,7 +44,7 @@ $result_tran = $conn->query($sql_tran);
 
         </div>
     </div>
-    <div class="col col-md-9">
+    <div class="col col-md-10">
         <?php
         if (isset($_SESSION['msg'])) {
         ?>
@@ -62,9 +62,15 @@ $result_tran = $conn->query($sql_tran);
                     <tr>
                         <th>No</th>
                         <th>Transaction No</th>
-                        <th>Payment Status</th>
+                        <th>Vet Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Amount</th>
-                        <th>Payment Date/Time</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                        <th>Payment Date</th>
+                        <th>Prescription</th>
+                        <th>Status</th>
 
                     </tr>
                 </thead>
@@ -75,11 +81,16 @@ $result_tran = $conn->query($sql_tran);
                         <tr>
                             <td><?= $key + 1 ?></td>
                             <td><?= $value['transaction_id'] ?></td>
+                            <td><?= $value['full_name'] ?></td>
+                            <td><?= $value['date'] ?></td>
+                            <td><?= $value['time'] ?></td>
+                            <td><?= $value['amount'] ?> tk</td>
                             <td><?= $value['payment_status'] ?></td>
-
-                            <td><?= $value['amount'] ?></td>
+                            <td><?= $value['payment_method'] ?></td>
                             <td><?= $value['payment_date'] ?></td>
-                            
+                            <td><button>View</button></td>
+                            <td>Complete</td>
+
                         </tr>
                     <?php
                     }

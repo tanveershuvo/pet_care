@@ -61,9 +61,15 @@ if (isset($_POST['search']) && $_POST['location'] != 0) {
                                                 <br>
                                                 <p>Location: <label class="label label-default"><?= $value['location'] ?></label></p>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <a class="btn btn-info btn-offset-2 btn-sm-4 pull-right" href="adoption_details.php?id=<?= $value['id']; ?>">View Details</a>
-                                            </div>
+                                            <?php if (isset($_SESSION['isLoggedIn'])) { ?>
+                                                <div class="col-sm-4">
+                                                    <a class="btn btn-info btn-offset-2 btn-sm-4 pull-right" href="adoption_details.php?id=<?= $value['id']; ?>">View Details</a>
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="alert alert-danger col-sm-4" role="alert">
+                                                    Login to view details
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>

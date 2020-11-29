@@ -72,7 +72,13 @@ if (isset($_POST['search'])) {
             <div class="col-sm-8 wow fadeInRight">
                 <h2>Search Vets</h2>
                 <div class="panel">
+                    <?php if (!isset($_SESSION['isLoggedIn'])) { ?>
+                        <div class="alert alert-danger" role="alert">
+                            Login to view details
+                        </div>
+                    <?php } ?>
                     <div class="panel-body">
+
                         <?php if ($result->num_rows > 0) { ?>
                             <div class="row">
                                 <?php foreach ($result as $key => $value) {
@@ -80,7 +86,7 @@ if (isset($_POST['search'])) {
                                     $serviceSQL = "SELECT * FROM vet_available_service as v, services as s WHERE v.service_id = s.id AND v.vet_id = '$id'";
                                     $datas = $conn->query($serviceSQL);
                                 ?>
-                                    <a style="color:black;" href="vet-details?vet-id=<?= $value['user_id'] ?>">
+                                    <a style="color:black;" href="<?php if (isset($_SESSION['isLoggedIn'])) { ?>vet-details?vet-id=<?= $value['user_id'] ?><?php } else { ?>javascript:void(0)<?php } ?>">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <div class="row">

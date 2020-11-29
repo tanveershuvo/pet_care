@@ -129,8 +129,8 @@ include 'includes/sidebar.php';
 
                     <strong><i class="far fa-file-alt mr-1"></i> Short Bio</strong>
 
-                    <p class="text-muted"><?php if (isset($row['address'])) {
-                                            echo $row['address'];
+                    <p class="text-muted"><?php if (isset($row['short_bio'])) {
+                                            echo $row['short_bio'];
                                           }  ?>
                     </p>
                   </div>
@@ -140,14 +140,14 @@ include 'includes/sidebar.php';
 
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
-                  <form class="form-horizontal" action="controllers/updateprofileController.php" method="post">
+                  <form class="form-horizontal" id="update_profile" action="controllers/updateprofileController.php" method="post">
                     <div class="form-group row">
                       <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
                       <label for="inputName" class="col-sm-2 col-form-label">Title</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" name="title" value="<?php if (isset($row['title'])) {
-                                                                                                      echo $row['title'];
-                                                                                                    } ?>" placeholder="Title">
+                      <div class="col-sm-10 validate">
+                        <input type="text" class="form-control" id="title" name="title" value="<?php if (isset($row['title'])) {
+                                                                                                  echo $row['title'];
+                                                                                                } ?>" placeholder="Title">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -160,10 +160,10 @@ include 'includes/sidebar.php';
                     </div>
                     <div class="form-group row">
                       <label for="inputName2" class="col-sm-2 col-form-label">Address</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="address" value="<?php if (isset($row['address'])) {
-                                                                                        echo $row['address'];
-                                                                                      } ?>" id="inputName2" placeholder="Name">
+                      <div class="col-sm-10 validate">
+                        <input type="text" class="form-control" id="address" name="address" value="<?php if (isset($row['address'])) {
+                                                                                                      echo $row['address'];
+                                                                                                    } ?>" id="inputName2" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -178,18 +178,18 @@ include 'includes/sidebar.php';
                     </div>
                     <div class="form-group row">
                       <label for="inputExperience" class="col-sm-2 col-form-label">Education</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="education" placeholder="Education"><?php if (isset($row['education'])) {
-                                                                                                  echo $row['education'];
-                                                                                                } ?></textarea>
+                      <div class="col-sm-10 validate">
+                        <textarea class="form-control" id="education" name="education" placeholder="Education"><?php if (isset($row['education'])) {
+                                                                                                                  echo $row['education'];
+                                                                                                                } ?></textarea>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="inputExperience" class="col-sm-2 col-form-label">Short Bio</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="short_bio" placeholder="Bio"><?php if (isset($row['short_bio'])) {
-                                                                                            echo $row['short_bio'];
-                                                                                          } ?></textarea>
+                      <div class="col-sm-10 validate">
+                        <textarea class="form-control" id="short_bio" name="short_bio" placeholder="Bio"><?php if (isset($row['short_bio'])) {
+                                                                                                            echo $row['short_bio'];
+                                                                                                          } ?></textarea>
                       </div>
                     </div>
 
@@ -204,19 +204,19 @@ include 'includes/sidebar.php';
                 <!-- /.tab-pane -->
 
                 <div class="tab-pane" id="settings">
-                  <form class="form-horizontal" action="controllers/updateprofileController.php" method="post">
+                  <form class="form-horizontal" id="update_pass" action="controllers/updateprofileController.php" method="post">
                     <input type="hidden" value="<?php echo $id; ?>" name="id">
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-4 col-form-label">Password</label>
-                      <div class="col-sm-8">
+                      <div class="col-sm-8 validate">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="6" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-4 col-form-label">Confirm Password</label>
-                      <div class="col-sm-8">
-                        <input type="password" class="form-control" name="con_password" id="con_password" placeholder="Confirm Password" oninput="check(this)" required>
+                      <div class="col-sm-8 validate">
+                        <input type="password" class="form-control" name="con_password" id="passowrd_confirm" placeholder="Confirm Password" oninput="check(this)" required>
                       </div>
                     </div>
 
@@ -253,3 +253,72 @@ include 'includes/sidebar.php';
   }
 </script>
 <?php include 'includes/footer.php'; ?>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#update_pass').validate({
+      rules: {
+        password: {
+          required: true,
+          minlength: 5
+        },
+        password_confirm: {
+          minlength: 5,
+          required: true,
+          equalTo: "#password"
+        }
+      },
+      messages: {
+        password: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long"
+        },
+        password_confirm: {
+          required: "Please provide a password",
+          minlength: "Your password must be at least 5 characters long",
+          equalTo: "Password mismatch"
+        },
+
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.validate').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+
+    $('#update_profile').validate({
+      rules: {
+        title: {
+          required: true,
+        },
+        address: {
+          required: true,
+        },
+        education: {
+          required: true,
+        },
+        short_bio: {
+          required: true,
+        }
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.validate').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+</script>

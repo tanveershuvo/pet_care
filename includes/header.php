@@ -16,20 +16,17 @@
                     <li class="scroll active"><a href="index">Home</a></li>
                     <li class="scroll"><a href="services">Our Services</a></li>
                     <li class="scroll"><a href="contact">Contact</a></li>
+                    <li class="scroll"><a href="vet">Find Vet</a></li>
                     <li class="scroll"><a href="adoption">Adoption</a></li>
 
                     <?php if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn']) { ?>
-                        <li class="scroll"><a href="vet">Vet</a></li>
-                        <li class="scroll"><a href="dashboard">My Dashboard</a></li>
+                        <li class="scroll"><a href="dashboard"><?= $_SESSION['name'] ?>'s dashboard</a></li>
                         <li class="scroll"><a href="logout">Logout</a></li>
 
                     <?php } else { ?>
                         <li class="scroll"><a href="signin">Sign In</a></li>
                         <li class="scroll"><a href="vet-registration">Vet Registration</a></li>
                     <?php } ?>
-
-
-
                 </ul>
             </div>
         </div>

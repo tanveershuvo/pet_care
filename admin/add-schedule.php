@@ -78,19 +78,19 @@ if (isset($_GET['edit'])) {
       <?php } ?>
       <div class="card">
         <div class="card-body">
-          <form action="controllers/scheduleController.php" method="post">
+          <form action="controllers/scheduleController.php" id="schedule" method="post">
             <div class="form-group row">
               <label for="inputName" class="col-sm-4 col-form-label">Visiting Charge</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" name="visiting" value="<?php if (isset($vetdetails['visiting_charge'])) {
-                                                                                  echo $vetdetails['visiting_charge'];
-                                                                                } ?>" placeholder="visiting">
+              <div class="col-sm-8 validate">
+                <input type="text" class="form-control" name="visiting" id="visiting" value="<?php if (isset($vetdetails['visiting_charge'])) {
+                                                                                                echo $vetdetails['visiting_charge'];
+                                                                                              } ?>" placeholder="visiting">
               </div>
             </div>
             <div class="form-group row">
               <label for="inputName2" class="col-sm-4 col-form-label">Select days your are available</label>
-              <div class="col-sm-8">
-                <select class="select2" name="week_days[]" multiple="multiple" data-placeholder="Select days you are available" style="width: 100%;">
+              <div class="col-sm-8 validate">
+                <select class="select2" id="weekdays" name="week_days[]" multiple="multiple" data-placeholder="Select days you are available" style="width: 100%;">
                   <?php foreach ($weekdays as $weekday) { ?>
                     <option value="<?= $weekday['id'] ?>" <?php if (in_array($weekday['id'], $selectweek)) { ?> selected <?php } ?>><?= $weekday['days'] ?></option>
                   <?php } ?>
@@ -100,8 +100,8 @@ if (isset($_GET['edit'])) {
             </div>
             <div class=" form-group row">
               <label for="inputName2" class="col-sm-4 col-form-label">Select time slot you are available in above days</label>
-              <div class="col-sm-8 ">
-                <select class="select2" name="slots[]" multiple="multiple" data-placeholder="Select time slots you are available" style="width: 100%;">
+              <div class="col-sm-8 validate">
+                <select class="select2" id="slots" name="slots[]" multiple="multiple" data-placeholder="Select time slots you are available" style="width: 100%;">
                   <?php foreach ($slots as $slot) { ?>
                     <option value="<?= $slot['id'] ?>" <?php if (in_array($slot['id'], $selectSlot)) { ?> selected <?php } ?>><?= $slot['time'] ?></option>
                   <?php } ?>
@@ -113,8 +113,8 @@ if (isset($_GET['edit'])) {
               <label for="inputExperience" value="<?php if (isset($row['education'])) {
                                                     echo $row['education'];
                                                   } ?>" class="col-sm-4 col-form-label">Select services you offers:</label>
-              <div class="col-sm-8">
-                <select class="select2" name="services[]" multiple="multiple" data-placeholder="Select services you offer" style="width: 100%;">
+              <div class="col-sm-8 validate">
+                <select class="select2" id="services" name="services[]" multiple="multiple" data-placeholder="Select services you offer" style="width: 100%;">
                   <?php foreach ($services as $service) { ?>
                     <option value="<?= $service['id'] ?>" <?php if (in_array($service['id'], $selectService)) { ?> selected <?php } ?>><?= $service['service_name'] ?></option>
                   <?php } ?>
@@ -143,3 +143,38 @@ if (isset($_GET['edit'])) {
 <!-- /.content-wrapper -->
 
 <?php include 'includes/footer.php'; ?>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#schedule').validate({
+      rules: {
+        visiting: {
+          required: true,
+        },
+        weekdays: {
+          required: true,
+        }
+      },
+      messages: {
+        visiting: {
+          required: "Please provide visiting charge",
+        },
+        weekdays: {
+          required: "Please select weekdays you are available",
+        },
+
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.validate').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+  });
+</script>
