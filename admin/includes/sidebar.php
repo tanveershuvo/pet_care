@@ -40,12 +40,28 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="all-appointments" class="nav-link <?= ($activePage == 'all-appointments') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                All Appointments
+              </p>
+            </a>
+          </li>
         <?php } elseif (isset($_SESSION['role']) && $_SESSION['role'] == 2) { ?>
           <li class="nav-item">
             <a href="vet-dashboard" class="nav-link <?= ($activePage == 'vet-dashboard') ? 'active' : ''; ?> ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 My Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="appointments" class="nav-link <?= ($activePage == 'vet-schedule') ? 'active' : ''; ?> ">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Appointments
               </p>
             </a>
           </li>

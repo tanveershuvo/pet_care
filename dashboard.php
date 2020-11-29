@@ -56,11 +56,11 @@ include_once 'includes/header.php';
                 </div>
                 <div class="form-group">
                     <label>New Password :</label>
-                    <input type="password" name="new_password" id="password" class="form-control" placeholder="Password" >
+                    <input type="password" name="new_password" id="password" class="form-control" placeholder="Password" required>
                 </div>
                 <div class="form-group">
                     <label>Confirm Password :</label>
-                    <input type="password" name="confirm_password" id="password" class="form-control" placeholder="Confirm Password">
+                    <input type="password" name="confirm_password" id="password" class="form-control" placeholder="Confirm Password" required>
                 </div>
 
                 <div class="form-group">

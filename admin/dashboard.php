@@ -1,7 +1,7 @@
-<?php session_start(); ?>
-<?php include 'includes/header.php'; ?>
-<?php
+<?php session_start();
+include 'includes/header.php';
 include_once("../dbConnection/dbCon.php");
+include_once("adminChecker.php");
 $conn = connect();
 //PIE Chart 1 ALL MENUS
 $piesql1 = "SELECT SUM(isOffered = 0) as 'regular',SUM(isOffered = 1) as 'offered' FROM regular_menu_details";

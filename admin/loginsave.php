@@ -9,14 +9,15 @@ if (isset($_POST["submit"])) {
   $result = $conn->query($sql);
   $row = mysqli_fetch_assoc($result);
   if ($result->num_rows > 0) {
-    $_SESSION['isLoggedIn'] = TRUE;
     $_SESSION['email'] = $row['email'];
     $_SESSION['name'] = $row['name'];
     $_SESSION['role'] = $row['role'];
     $_SESSION['id'] = $row['id'];
     if ($row['role'] == 1) {
+      $_SESSION['isAdmin'] = true;
       header('Location:dashboard');
     } elseif ($row['role'] == 2) {
+      $_SESSION['isVet'] = true;
       header('Location:vet-dashboard');
     } else {
       header('Location:index');

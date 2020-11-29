@@ -47,11 +47,11 @@ if (isset($_POST['vet_register'])) {
         $image = $_POST['image'];
     }
 
-    $sql = "SELECT * FROM vetDetails WHERE bmdc_registered_number = '$bmdc_reg_num'";
+    $sql = "SELECT * FROM vetDetails WHERE bmdc_registered_number = '$bmdc_reg_num' OR email='$email'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        $_SESSION['msg'] = "This registration number is already in use!!";
+        $_SESSION['msg'] = "This registration number or email is already in use!!";
         $_SESSION['type'] = "danger";
         header('Location:../vet-registration');
     } else {

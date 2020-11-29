@@ -12,15 +12,24 @@ if (isset($_POST['register'])) {
         $_SESSION['type'] = "danger";
         header('Location:../signin.php');
     }
-    $sql = "INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name','$email','$password')";
-    if ($conn->query($sql)) {
-        $_SESSION['msg'] = "Registration Successful! Sign In to Continue!";
-        $_SESSION['type'] = "success";
-        header('Location:../signin.php');
-    } else {
-        $_SESSION['msg'] = "Something went Wrong!!Try again Later!";
+    $sql1 = "SELECT email FROM users WHERE email = '$email'";
+    $res = $conn->query($sql1);
+
+    if ($res->num_rows > 0) {
+        $_SESSION['msg'] = "This email already exist";
         $_SESSION['type'] = "danger";
         header('Location:../signin.php');
+    } else {
+        $sql = "INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name','$email','$password')";
+        if ($conn->query($sql)) {
+            $_SESSION['msg'] = "Registration Successful! Sign In to Continue!";
+            $_SESSION['type'] = "success";
+            header('Location:../signin.php');
+        } else {
+            $_SESSION['msg'] = "Something went Wrong!!Try again Later!";
+            $_SESSION['type'] = "danger";
+            header('Location:../signin.php');
+        }
     }
 }
 

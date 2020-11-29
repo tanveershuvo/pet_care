@@ -1,5 +1,6 @@
 <?php session_start();
 include_once("../dbConnection/dbCon.php");
+include_once("adminChecker.php");
 $conn = connect();
 $sql = "SELECT * FROM services Order By service_name ASC ";
 $results = $conn->query($sql);
@@ -36,7 +37,7 @@ if (isset($_GET['edit'])) {
 
       <div class="card">
         <div class="card-body">
-          <form action="controllers/serviceController.php" method="post">
+          <form action="controllers/serviceController.php" id="form" method="post">
             <div class="row">
 
               <div class="form-group col-6">
@@ -44,9 +45,9 @@ if (isset($_GET['edit'])) {
                 <input type="hidden" name="service_id" value="<?php if (isset($row)) {
                                                                 echo $row['id'];
                                                               }  ?>">
-                <input type="text" class="form-control" name="service_name" placeholder="Enter service name" value="<?php if (isset($row)) {
-                                                                                                                      echo $row['service_name'];
-                                                                                                                    }  ?>">
+                <input type="text" required class="form-control validate" id="name" name="service_name" placeholder="Enter service name" value="<?php if (isset($row)) {
+                                                                                                                                                  echo $row['service_name'];
+                                                                                                                                                }  ?>">
                 <?php if (isset($_GET['edit'])) { ?>
                   <button type="submit" name="edit" class="btn btn-info mt-4">Edit service</button>
                   <a type="button" href="service-list" class="btn btn-danger mt-4">Cancel</a>
@@ -56,9 +57,9 @@ if (isset($_GET['edit'])) {
               </div>
               <div class="form-group col-6">
                 <label for="">Service details</label>
-                <textarea class="form-control" name="service_details" placeholder="Enter service details"><?php if (isset($row)) {
-                                                                                                            echo $row['service_details'];
-                                                                                                          }  ?></textarea>
+                <textarea required class="form-control validate" id="details" name="service_details" placeholder="Enter service details"><?php if (isset($row)) {
+                                                                                                                                            echo $row['service_details'];
+                                                                                                                                          }  ?></textarea>
               </div>
 
             </div>
@@ -129,3 +130,39 @@ if (isset($_GET['edit'])) {
 <!-- /.content-wrapper -->
 
 <?php include 'includes/footer.php'; ?>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#form').validate({
+      rules: {
+        name: {
+          required: true,
+        },
+        details: {
+          required: true,
+        }
+      },
+      messages: {
+        name: {
+          required: "Please provide a name",
+        },
+        details: {
+          required: "Please provide a details",
+        },
+
+      },
+      errorElement: 'span',
+      errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.validate').append(error);
+      },
+      highlight: function(element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function(element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      }
+    });
+
+  });
+</script>

@@ -6,17 +6,21 @@ $conn = connect();
 
 
 if (isset($_POST['search'])) {
-
-    if ($_POST['location'] !== 0 && $_POST['service'] == 0) {
+    if (($_POST['location'] !== '0') && ($_POST['service'] == '0')) {
         $loc_id = $_POST['location'];
         $sql = "SELECT vetdetails.*,location.location FROM vetdetails,location WHERE vetdetails.location_id = location.id AND vetdetails.is_completed = 1 AND location.id = '$loc_id'";
-    } elseif ($_POST['location'] == 0 && $_POST['service'] !== 0) {
+    } elseif ($_POST['location'] == '0' && $_POST['service'] !== '0') {
+
         $service_id = $_POST['service'];
         $sql = "SELECT vetdetails.*,location.location FROM vetdetails,location,vet_available_service,services WHERE vetdetails.location_id = location.id AND vetdetails.user_id = vet_available_service.vet_id AND vet_available_service.service_id = services.id AND vetdetails.is_completed = 1 AND services.id = '$service_id'";
-    } elseif ($_POST['location'] !== 0 && $_POST['service'] !== 0) {
+    } elseif ($_POST['location'] !== '0' && $_POST['service'] !== '0') {
+
         $loc_id = $_POST['location'];
         $service_id = $_POST['service'];
         $sql = "SELECT vetdetails.*,location.location FROM vetdetails,location,vet_available_service,services WHERE vetdetails.location_id = location.id AND vetdetails.user_id = vet_available_service.vet_id AND vet_available_service.service_id = services.id AND vetdetails.is_completed = 1 AND services.id = '$service_id' AND location.id = '$loc_id'";
+    } elseif ($_POST['location'] == '0' && $_POST['service'] == '0') {
+
+        $sql = 'SELECT vetdetails.*,location.location FROM vetdetails,location WHERE vetdetails.location_id = location.id AND vetdetails.is_completed = 1';
     }
     $result = $conn->query($sql);
 } else {

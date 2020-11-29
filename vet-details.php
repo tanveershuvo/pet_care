@@ -143,6 +143,15 @@ $services = $conn->query($sql4);
             var date = $("#datepicker").val();
             var slot = $("#slot").val();
             var vet_id = $("#vet_id").val();
+            if (date === '') {
+                alert('Select Date');
+                return false;
+            }
+            if (slot === '') {
+                alert('Select Date');
+                return false;
+            }
+
             $.ajax({
                 url: "controllers/ajaxController.php",
                 type: "post",

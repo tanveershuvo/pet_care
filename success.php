@@ -1,5 +1,11 @@
 <?php
+ini_set('session.gc_maxlifetime', 6048000);
 
+// each client should remember their session id for EXACTLY 1 week
+session_set_cookie_params(6048000);
+session_start();
+include_once("dbConnection/dbCon.php");
+$conn = connect();
 
 $val_id = urlencode($_POST['val_id']);
 $store_id = urlencode("petca5fc309f79b313");
@@ -23,6 +29,7 @@ if ($code == 200 && !(curl_errno($handle))) {
     # $status = $result['status'];
 
     # TO CONVERT AS OBJECT
+
     $result = json_decode($result);
 
     # TRANSACTION INFO
@@ -52,24 +59,20 @@ if ($code == 200 && !(curl_errno($handle))) {
     $APIConnect = $result->APIConnect;
     $validated_on = $result->validated_on;
     $gw_version = $result->gw_version;
+    if ($status = 'VALID') {
+        $u_id = $_SESSION['id'];
+        $v_id = $_SESSION['vet_id'];
+        $date = $_SESSION['date'];
+        $slot = $_SESSION['slot'];
 
-    session_start();
-    include_once("dbConnection/dbCon.php");
-    $conn = connect();
+        $sql = "INSERT INTO `appointment` (`user_id`, `vet_id`, `date`, `slot_id`, `payment_status`,`transaction_id`) VALUES ('$u_id', '$v_id', '$date', '$slot', '$status', '$tran_id')";
 
-
-    $u_id = $_SESSION['id'];
-    $v_id = $_SESSION['vet_id'];
-    $date = $_SESSION['date'];
-    $slot = $_SESSION['slot'];
-
-    $sql = "INSERT INTO `appointment` (`user_id`, `vet_id`, `date`, `slot_id`, `payment_status`,`transaction_id`) VALUES ('$u_id', '$v_id', '$date', '$slot', '$status', '$tran_id')";
-
-    $sql2 = "INSERT INTO `transactions` (`transaction_id`, `amount`, `payment_method`, `payment_date`) VALUES ('$tran_id', '$amount', '$card_type', '$tran_date')";
-    if ($conn->query($sql) && $conn->query($sql2)) {
-        $_SESSION['msg'] = "New appointment created! Payment Successfull";
-        $_SESSION['type'] = "success";
-        header('Location:my-appointment');
+        $sql2 = "INSERT INTO `transactions` (`transaction_id`, `amount`, `payment_method`, `payment_date`) VALUES ('$tran_id', '$amount', '$card_type', '$tran_date')";
+        if ($conn->query($sql) && $conn->query($sql2)) {
+            $_SESSION['msg'] = "New appointment created! Payment Successfull";
+            $_SESSION['type'] = "success";
+            header('Location:my-appointment');
+        }
     }
 } else {
 
