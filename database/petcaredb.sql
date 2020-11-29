@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 11:54 AM
+-- Generation Time: Nov 29, 2020 at 05:43 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -58,11 +58,22 @@ CREATE TABLE `appointment` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `vet_id` int(11) NOT NULL,
-  `week_day_id` int(11) NOT NULL,
+  `date` varchar(20) NOT NULL,
   `slot_id` int(11) NOT NULL,
-  `payment_status` tinyint(1) NOT NULL,
-  `transaction_id` int(11) NOT NULL
+  `payment_status` varchar(20) NOT NULL,
+  `transaction_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`id`, `user_id`, `vet_id`, `date`, `slot_id`, `payment_status`, `transaction_id`) VALUES
+(1, 3, 2, '', 0, 'VALID', 'SSLCZ_TEST_5fc31fe544eec'),
+(2, 0, 0, '', 0, 'VALID', 'SSLCZ_TEST_5fc320183e6be'),
+(3, 3, 2, '01-12-2020', 1, 'VALID', 'SSLCZ_TEST_5fc3203512936'),
+(4, 3, 2, '01-12-2020', 2, 'VALID', 'SSLCZ_TEST_5fc3205142151'),
+(5, 3, 2, '01-12-2020', 3, 'VALID', 'SSLCZ_TEST_5fc3208523712');
 
 -- --------------------------------------------------------
 
@@ -155,17 +166,26 @@ INSERT INTO `slot` (`id`, `time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction`
+-- Table structure for table `transactions`
 --
 
-CREATE TABLE `transaction` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `amount` float(10,2) NOT NULL,
-  `payment_type` int(11) NOT NULL,
-  `payment_method` int(11) NOT NULL,
-  `date` date NOT NULL
+CREATE TABLE `transactions` (
+  `transaction_id` varchar(100) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `payment_date` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`transaction_id`, `amount`, `payment_method`, `payment_date`) VALUES
+('SSLCZ_TEST_5fc31fe544eec', 300, 'BKASH-BKash', '2020-11-29 10:15:44'),
+('SSLCZ_TEST_5fc320183e6be', 300, 'DBBLMOBILEB-Dbbl Mobile Banking', '2020-11-29 10:16:35'),
+('SSLCZ_TEST_5fc3203512936', 300, 'DBBLMOBILEB-Dbbl Mobile Banking', '2020-11-29 10:17:03'),
+('SSLCZ_TEST_5fc3205142151', 300, 'IBBL-Islami Bank', '2020-11-29 10:17:32'),
+('SSLCZ_TEST_5fc3208523712', 300, 'CITYBANKIB-City Bank', '2020-11-29 10:18:23');
 
 -- --------------------------------------------------------
 
@@ -187,7 +207,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(2, 'Tanvir', 'tanveershuvos@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 2),
+(2, 'Tanvir', 'tanveershuvos@gmail.com', '25d55ad283aa400af464c76d713c07ad', 2),
 (3, 'simik', 'tanvir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 3),
 (4, 'zutekixaro', 'vezakajy@mailinator.com', '827ccb0eea8a706c4c34a16891f84e7b', 3);
 
@@ -221,7 +241,7 @@ CREATE TABLE `vetdetails` (
 --
 
 INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `location_id`, `avg_rating`, `is_approved`, `is_completed`) VALUES
-(1, 2, '123456', 'Tanvir', '', '', 'tanveershuvos@gmail.com', '', 'male', 300, '', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 0.00, 1, 1);
+(1, 2, '123456', 'Tanvir', 'ddd', 'sssssssssss', 'tanveershuvos@gmail.com', 'dddff', 'male', 300, 'ssssssss', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 0.00, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -253,11 +273,9 @@ CREATE TABLE `vet_available_days` (
 --
 
 INSERT INTO `vet_available_days` (`id`, `vet_id`, `week_days`) VALUES
-(1, 2, 1),
-(2, 2, 2),
-(3, 2, 5),
-(4, 2, 1),
-(5, 2, 2);
+(12, 2, 1),
+(13, 2, 2),
+(14, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -276,10 +294,7 @@ CREATE TABLE `vet_available_service` (
 --
 
 INSERT INTO `vet_available_service` (`id`, `vet_id`, `service_id`) VALUES
-(1, 2, 1),
-(2, 2, 3),
-(3, 2, 1),
-(4, 2, 3);
+(8, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -298,11 +313,9 @@ CREATE TABLE `vet_available_slot` (
 --
 
 INSERT INTO `vet_available_slot` (`id`, `vet_id`, `slot_id`) VALUES
-(1, 2, 2),
-(2, 2, 3),
-(3, 2, 4),
-(4, 2, 2),
-(5, 2, 4);
+(13, 2, 1),
+(14, 2, 2),
+(15, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -340,12 +353,7 @@ ALTER TABLE `adoptionpost`
 -- Indexes for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `vet_id` (`vet_id`),
-  ADD KEY `transaction_id` (`transaction_id`),
-  ADD KEY `slot_id` (`slot_id`),
-  ADD KEY `week_day_id` (`week_day_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `donation`
@@ -381,11 +389,10 @@ ALTER TABLE `slot`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction`
+-- Indexes for table `transactions`
 --
-ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`transaction_id`);
 
 --
 -- Indexes for table `users`
@@ -446,7 +453,7 @@ ALTER TABLE `adoptionpost`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `donation`
@@ -479,12 +486,6 @@ ALTER TABLE `slot`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `transaction`
---
-ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -506,19 +507,19 @@ ALTER TABLE `vetrating`
 -- AUTO_INCREMENT for table `vet_available_days`
 --
 ALTER TABLE `vet_available_days`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `vet_available_service`
 --
 ALTER TABLE `vet_available_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `vet_available_slot`
 --
 ALTER TABLE `vet_available_slot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
@@ -537,16 +538,6 @@ ALTER TABLE `adoptionpost`
   ADD CONSTRAINT `adoptionPost_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `appointment`
---
-ALTER TABLE `appointment`
-  ADD CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`vet_id`) REFERENCES `vetdetails` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`transaction_id`) REFERENCES `slot` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`),
-  ADD CONSTRAINT `appointment_ibfk_5` FOREIGN KEY (`week_day_id`) REFERENCES `weekdays` (`id`);
-
---
 -- Constraints for table `donation`
 --
 ALTER TABLE `donation`
@@ -558,12 +549,6 @@ ALTER TABLE `donation`
 --
 ALTER TABLE `donationpost`
   ADD CONSTRAINT `donationPost_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `transaction`
---
-ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `vetdetails`
