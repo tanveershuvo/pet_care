@@ -3,6 +3,14 @@ include 'includes/header.php';
 include_once("../dbConnection/dbCon.php");
 $conn = connect();
 
+$sql = "SELECT COUNT(id) as 'count',SUM(t.amount) as 'amount' FROM `appointment` as a , transactions as t WHERE a.transaction_id = t.transaction_id";
+$result = $conn->query($sql);
+$row = mysqli_fetch_assoc($result);
+$vetIncome = $row['amount'];
+$companyIncome = ($vetIncome * 15) / 100;
+
+$sqlchart = "SELECT COUNT(date) as 'total_app', date FROM appointment GROUP BY date ORDER BY date ";
+$resultchart = $conn->query($sqlchart);
 
 ?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -14,15 +22,16 @@ $conn = connect();
 
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses'],
-      ['2004', 1000, 400],
-      ['2005', 1170, 460],
-      ['2006', 660, 1120],
-      ['2007', 1030, 540]
+      ['appointment date', 'appointments'],
+      <?php
+      foreach ($resultchart as $r) {
+        echo "['" . $r["date"] . "'," . $r["total_app"] . "],";
+      }
+      ?>
     ]);
 
     var options = {
-      title: 'Company Performance',
+      title: 'Toatl Appointment per day',
       curveType: 'function',
       legend: {
         position: 'bottom'
@@ -45,7 +54,7 @@ $conn = connect();
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Vet Dashboard</h1>
+          <h1 class="m-0">Admin Dashboard</h1>
         </div><!-- /.col -->
 
       </div><!-- /.row -->
@@ -63,7 +72,7 @@ $conn = connect();
             <div class="info-box-content">
               <span class="info-box-text">Total Appointments</span>
               <span class="info-box-number">
-                10
+                <?= $row['count'] ?>
               </span>
             </div>
             <!-- /.info-box-content -->
@@ -77,7 +86,7 @@ $conn = connect();
 
             <div class="info-box-content">
               <span class="info-box-text">Company's Income</span>
-              <span class="info-box-number">41,410</span>
+              <span class="info-box-number"><?= $companyIncome ?> tk</span>
             </div>
             <!-- /.info-box-content -->
           </div>

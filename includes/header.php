@@ -8,14 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="index"><img src="images/logo.png" alt="logo"></a>
             </div>
 
             <div class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
                     <li class="scroll active"><a href="index">Home</a></li>
                     <li class="scroll"><a href="services">Our Services</a></li>
-                    <li class="scroll"><a href="contact">Contact</a></li>
                     <li class="scroll"><a href="vet">Find Vet</a></li>
                     <li class="scroll"><a href="adoption">Adoption</a></li>
 

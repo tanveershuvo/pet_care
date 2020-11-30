@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2020 at 05:43 AM
+-- Generation Time: Nov 30, 2020 at 07:45 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.31
 
@@ -40,14 +40,6 @@ CREATE TABLE `adoptionpost` (
   `status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `adoptionpost`
---
-
-INSERT INTO `adoptionpost` (`id`, `title`, `description`, `image`, `location_id`, `address`, `contact_info`, `user_id`, `status`) VALUES
-(6, 'Tenetur iste rerum s', 'Ut adipisci sed dolo', '20201128091805_77397329_2538762309547797_3433006727363035136_o.jpg', 1, '', 'Et ullamco odio volu', 3, 0),
-(7, 'new', 'Officia deserunt qui', '20201128092934_download.png', 2, '', 'Laborum Non id quis', 3, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -61,19 +53,9 @@ CREATE TABLE `appointment` (
   `date` varchar(20) NOT NULL,
   `slot_id` int(11) NOT NULL,
   `payment_status` varchar(20) NOT NULL,
-  `transaction_id` varchar(50) NOT NULL
+  `transaction_id` varchar(50) NOT NULL,
+  `rating` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `appointment`
---
-
-INSERT INTO `appointment` (`id`, `user_id`, `vet_id`, `date`, `slot_id`, `payment_status`, `transaction_id`) VALUES
-(1, 3, 2, '', 0, 'VALID', 'SSLCZ_TEST_5fc31fe544eec'),
-(2, 0, 0, '', 0, 'VALID', 'SSLCZ_TEST_5fc320183e6be'),
-(3, 3, 2, '01-12-2020', 1, 'VALID', 'SSLCZ_TEST_5fc3203512936'),
-(4, 3, 2, '01-12-2020', 2, 'VALID', 'SSLCZ_TEST_5fc3205142151'),
-(5, 3, 2, '01-12-2020', 3, 'VALID', 'SSLCZ_TEST_5fc3208523712');
 
 -- --------------------------------------------------------
 
@@ -139,8 +121,7 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `service_name`, `service_details`) VALUES
-(1, 'Nuter', 'Nuter Details '),
-(3, 'okkk', 'kkkkp');
+(1, 'Vaccine', 'Vaccinate you pet');
 
 -- --------------------------------------------------------
 
@@ -158,10 +139,12 @@ CREATE TABLE `slot` (
 --
 
 INSERT INTO `slot` (`id`, `time`) VALUES
-(1, '8 am -9 am'),
+(1, '8 am - 9 am'),
 (2, '9 am - 10 am'),
 (3, '10 am - 11 am'),
-(4, '11 am- 12 pm');
+(4, '11 am- 12 pm'),
+(5, '12pm - 1pm'),
+(6, '1pm - 2pm');
 
 -- --------------------------------------------------------
 
@@ -175,17 +158,6 @@ CREATE TABLE `transactions` (
   `payment_method` varchar(50) NOT NULL,
   `payment_date` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transactions`
---
-
-INSERT INTO `transactions` (`transaction_id`, `amount`, `payment_method`, `payment_date`) VALUES
-('SSLCZ_TEST_5fc31fe544eec', 300, 'BKASH-BKash', '2020-11-29 10:15:44'),
-('SSLCZ_TEST_5fc320183e6be', 300, 'DBBLMOBILEB-Dbbl Mobile Banking', '2020-11-29 10:16:35'),
-('SSLCZ_TEST_5fc3203512936', 300, 'DBBLMOBILEB-Dbbl Mobile Banking', '2020-11-29 10:17:03'),
-('SSLCZ_TEST_5fc3205142151', 300, 'IBBL-Islami Bank', '2020-11-29 10:17:32'),
-('SSLCZ_TEST_5fc3208523712', 300, 'CITYBANKIB-City Bank', '2020-11-29 10:18:23');
 
 -- --------------------------------------------------------
 
@@ -206,10 +178,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(2, 'Tanvir', 'tanveershuvos@gmail.com', '25d55ad283aa400af464c76d713c07ad', 2),
-(3, 'simik', 'tanvir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 3),
-(4, 'zutekixaro', 'vezakajy@mailinator.com', '827ccb0eea8a706c4c34a16891f84e7b', 3);
+(1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1);
 
 -- --------------------------------------------------------
 
@@ -236,26 +205,6 @@ CREATE TABLE `vetdetails` (
   `is_completed` int(4) NOT NULL DEFAULT -1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `vetdetails`
---
-
-INSERT INTO `vetdetails` (`id`, `user_id`, `bmdc_registered_number`, `full_name`, `title`, `education`, `email_address`, `address`, `gender`, `visiting_charge`, `short_bio`, `pro_pic`, `location_id`, `avg_rating`, `is_approved`, `is_completed`) VALUES
-(1, 2, '123456', 'Tanvir', 'ddd', 'sssssssssss', 'tanveershuvos@gmail.com', 'dddff', 'male', 300, 'ssssssss', '20201127193257_77397329_2538762309547797_3433006727363035136_o.jpg', 1, 0.00, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vetrating`
---
-
-CREATE TABLE `vetrating` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `vet_id` int(11) NOT NULL,
-  `rating` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --
@@ -267,15 +216,6 @@ CREATE TABLE `vet_available_days` (
   `vet_id` int(11) NOT NULL,
   `week_days` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `vet_available_days`
---
-
-INSERT INTO `vet_available_days` (`id`, `vet_id`, `week_days`) VALUES
-(12, 2, 1),
-(13, 2, 2),
-(14, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -289,13 +229,6 @@ CREATE TABLE `vet_available_service` (
   `service_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `vet_available_service`
---
-
-INSERT INTO `vet_available_service` (`id`, `vet_id`, `service_id`) VALUES
-(8, 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -307,15 +240,6 @@ CREATE TABLE `vet_available_slot` (
   `vet_id` int(11) NOT NULL,
   `slot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `vet_available_slot`
---
-
-INSERT INTO `vet_available_slot` (`id`, `vet_id`, `slot_id`) VALUES
-(13, 2, 1),
-(14, 2, 2),
-(15, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -335,8 +259,11 @@ CREATE TABLE `weekdays` (
 INSERT INTO `weekdays` (`id`, `days`) VALUES
 (1, 'Sunday'),
 (2, 'Monday'),
-(5, 'Tuesday'),
-(6, 'Wednesday');
+(3, 'Tuesday'),
+(4, 'Wednesday'),
+(5, 'Thursday'),
+(6, 'Friday'),
+(7, 'Satureday');
 
 --
 -- Indexes for dumped tables
@@ -408,14 +335,6 @@ ALTER TABLE `vetdetails`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `vetrating`
---
-ALTER TABLE `vetrating`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `vet_id` (`vet_id`);
-
---
 -- Indexes for table `vet_available_days`
 --
 ALTER TABLE `vet_available_days`
@@ -447,13 +366,13 @@ ALTER TABLE `weekdays`
 -- AUTO_INCREMENT for table `adoptionpost`
 --
 ALTER TABLE `adoptionpost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `donation`
@@ -477,55 +396,49 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `slot`
 --
 ALTER TABLE `slot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vetdetails`
 --
 ALTER TABLE `vetdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `vetrating`
---
-ALTER TABLE `vetrating`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vet_available_days`
 --
 ALTER TABLE `vet_available_days`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vet_available_service`
 --
 ALTER TABLE `vet_available_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vet_available_slot`
 --
 ALTER TABLE `vet_available_slot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
 --
 ALTER TABLE `weekdays`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -555,13 +468,6 @@ ALTER TABLE `donationpost`
 --
 ALTER TABLE `vetdetails`
   ADD CONSTRAINT `vetDetails_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `vetrating`
---
-ALTER TABLE `vetrating`
-  ADD CONSTRAINT `vetRating_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `vetRating_ibfk_2` FOREIGN KEY (`vet_id`) REFERENCES `vetdetails` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

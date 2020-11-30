@@ -7,7 +7,11 @@ $id = $_SESSION['id'];
 $sql = "SELECT COUNT(id) as 'count',SUM(t.amount) as 'amount' FROM `appointment` as a , transactions as t WHERE a.transaction_id = t.transaction_id AND vet_id = '$id'";
 $result = $conn->query($sql);
 $row = mysqli_fetch_assoc($result);
+$vetIncome = $row['amount'];
+$companyIncome = ($vetIncome * 15) / 100;
 
+$sqlchart = "SELECT COUNT(date) as 'total_app', date FROM appointment WHERE vet_id = '$id' GROUP BY date ORDER BY date ";
+$resultChart = $conn->query($sqlchart);
 
 ?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -20,9 +24,11 @@ $row = mysqli_fetch_assoc($result);
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Date', 'Appointment'],
-      ['20/2/2013', 1],
-      ['20/2/2014', 5],
-      ['25/32015', 3]
+      <?php
+      foreach ($resultChart as $r) {
+        echo "['" . $r["date"] . "'," . $r["total_app"] . "],";
+      }
+      ?>
     ]);
 
     var options = {
@@ -102,7 +108,7 @@ $row = mysqli_fetch_assoc($result);
 
             <div class="info-box-content">
               <span class="info-box-text">Company Share</span>
-              <span class="info-box-number">760 tk</span>
+              <span class="info-box-number"><?= $companyIncome ?> tk</span>
             </div>
             <!-- /.info-box-content -->
           </div>

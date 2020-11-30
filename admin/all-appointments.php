@@ -2,6 +2,8 @@
 include_once("../dbConnection/dbCon.php");
 $conn = connect();
 include_once("adminChecker.php");
+$del = "DELETE FROM appointment WHERE vet_id = 0";;
+$conn->query($del);
 $sql_tran = "SELECT * FROM appointment as a,transactions as t, vetdetails as v, slot as s,users as u WHERE a.transaction_id = t.transaction_id AND a.vet_id = v.user_id AND a.slot_id = s.id AND u.id = a.user_id";
 $result_tran = $conn->query($sql_tran);
 

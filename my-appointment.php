@@ -69,8 +69,7 @@ $result_tran = $conn->query($sql_tran);
                         <th>Payment Status</th>
                         <th>Payment Method</th>
                         <th>Payment Date</th>
-                        <th>Prescription</th>
-                        <th>Status</th>
+                        <th>Feedback</th>
 
                     </tr>
                 </thead>
@@ -88,41 +87,45 @@ $result_tran = $conn->query($sql_tran);
                             <td><?= $value['payment_status'] ?></td>
                             <td><?= $value['payment_method'] ?></td>
                             <td><?= $value['payment_date'] ?></td>
-                            <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                                    Feedback
-                                </button></td>
-                            <td>Complete</td>
-
-
-
-
+                            <td>
+                                <?php if ($value['rating'] === null) { ?>
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal<?= $value['transaction_id'] ?>">
+                                        Feedback
+                                    </button>
+                                <?php } else { ?>
+                                    Rated
+                                <?php } ?>
+                            </td>
                         </tr>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal<?= $value['transaction_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Feedback Modal</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="sel1">Give Feedback rating:</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>very poor</option>
-                                                <option>poor</option>
-                                                <option>normal</option>
-                                                <option>good</option>
-                                                <option>very good</option>
-                                            </select>
+                                    <form action="controllers/ratingController.php" method="post">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Feedback Modal</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+                                        <input type="hidden" name="transaction_id" value="<?= $value['transaction_id'] ?>">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="sel1">Give Feedback rating:</label>
+                                                <select name="rate" class="form-control" id="sel1" required>
+                                                    <option value="1">very poor</option>
+                                                    <option value="2">poor</option>
+                                                    <option value="3">normal</option>
+                                                    <option value="4">good</option>
+                                                    <option value="5">very good</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" name="rating" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
