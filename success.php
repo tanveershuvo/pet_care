@@ -59,7 +59,7 @@ if ($code == 200 && !(curl_errno($handle))) {
     $validated_on = $result->validated_on;
     $gw_version = $result->gw_version;
     if ($status = 'VALID') {
-        $u_id = 3;
+        $u_id = $_SESSION['id'];
         $v_id = $_SESSION['vet_id'];
         $date = $_SESSION['date'];
         $slot = $_SESSION['slot'];

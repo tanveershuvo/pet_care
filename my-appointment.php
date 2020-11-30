@@ -112,6 +112,7 @@ $result_tran = $conn->query($sql_tran);
                                             </button>
                                         </div>
                                         <input type="hidden" name="transaction_id" value="<?= $value['transaction_id'] ?>">
+                                        <input type="hidden" name="vet_id" value="<?= $value['vet_id'] ?>">
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="sel1">Give Feedback rating:</label>
