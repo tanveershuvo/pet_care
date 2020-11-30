@@ -17,8 +17,11 @@ if (isset($_POST['update_profile'])) {
     `title`='$title',`full_name`='$full_name', `address`='$address', `gender`='$gender', 
     `education`='$education',`short_bio`='$short_bio' 
     WHERE id = '$id'";
-    // echo $sql;exit;
-    if ($conn->query($sql)) {
+    $u_id = $_SESSION['id'];
+    $sql1 = "UPDATE users SET name='$full_name' WHERE id = '$u_id'";
+
+    if ($conn->query($sql) && $conn->query($sql1)) {
+        $_SESSION['vet_name'] = $_POST['full_name'];
         $_SESSION['msg'] = "Profile edited successfully";
         $_SESSION['type'] = "info";
         header('Location:../profile');

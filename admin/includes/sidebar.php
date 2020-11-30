@@ -53,15 +53,15 @@
             <a href="vet-dashboard" class="nav-link <?= ($activePage == 'vet-dashboard') ? 'active' : ''; ?> ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                My Dashboard
+                Dashboard
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="appointments" class="nav-link <?= ($activePage == 'vet-schedule') ? 'active' : ''; ?> ">
+            <a href="appointments" class="nav-link <?= ($activePage == 'appointments') ? 'active' : ''; ?> ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Appointments
+                My Appointments
               </p>
             </a>
           </li>
@@ -77,7 +77,7 @@
             <a href="vet-schedule" class="nav-link <?= ($activePage == 'vet-schedule') ? 'active' : ''; ?> ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Vet Schedule
+                My Schedules
               </p>
             </a>
           </li>
