@@ -2,6 +2,9 @@
 include_once 'includes/head.php';
 include_once 'includes/header.php';
 include_once("dbConnection/dbCon.php");
+if (!isset($_SESSION['isLoggedIn'])) {
+    header('Location:logout.php');
+}
 $conn = connect();
 $id = $_SESSION['id'];
 $sql = "SELECT *, adoptionPost.id as 'a_id' FROM adoptionPost ,location WHERE adoptionpost.location_id = location.id AND user_id = '$id'";
